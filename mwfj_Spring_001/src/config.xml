@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+
+	<bean 
+		id="user"
+		class="rico.demo.spring.entities.User">
+		<property name="id" value="100"></property>
+		<property name="loginName" value="admin"></property>
+		<property name="loginPassword" value="admin"></property>
+		
+		<property name="colors">
+			<list>
+				<value>red</value>
+				<value>blue</value>
+				<value>yellow</value>
+			</list>
+		</property>
+		
+		<property name="cities">
+			<set>
+				<value>chengdu</value>
+				<value>guangzhou</value>
+				<value>shanghai</value>
+			</set>
+		</property>
+		
+		<property name="maps">
+			<map>
+				<entry key="001" value="v001"/>
+				<entry key="002" value="v002"/>
+				<entry key="003" value="v003"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="userDao" class="rico.demo.spring.dao.UserDaoImpl"></bean>
+
+	<bean id="userService" class="rico.demo.spring.service.UserServiceImpl">
+		<!-- setter -->
+		<!-- <property name="userDao" ref="userDao"></property> -->
+	
+		<!-- 构造 -->
+		<constructor-arg ref="userDao" />
+	</bean>
+
+</beans>

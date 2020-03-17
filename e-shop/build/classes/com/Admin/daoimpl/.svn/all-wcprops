@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/code/!svn/ver/47/e-shop/src/com/Admin/daoimpl
+END
+AdminNoticeDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/195/e-shop/src/com/Admin/daoimpl/AdminNoticeDaoImpl.java
+END
+SubTypeDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/code/!svn/ver/195/e-shop/src/com/Admin/daoimpl/SubTypeDaoImpl.java
+END
+AdminCommentDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/210/e-shop/src/com/Admin/daoimpl/AdminCommentDaoImpl.java
+END
+AdminProdDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/195/e-shop/src/com/Admin/daoimpl/AdminProdDaoImpl.java
+END
+SuperTypeDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/92/e-shop/src/com/Admin/daoimpl/SuperTypeDaoImpl.java
+END
+AdminLoginDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/daoimpl/AdminLoginDaoImpl.java
+END
+AdminOrderDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/268/e-shop/src/com/Admin/daoimpl/AdminOrderDaoImpl.java
+END
+AdminUserDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/92/e-shop/src/com/Admin/daoimpl/AdminUserDaoImpl.java
+END

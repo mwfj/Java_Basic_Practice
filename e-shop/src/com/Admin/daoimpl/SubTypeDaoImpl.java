@@ -1,0 +1,945 @@
+package com.Admin.daoimpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.common.DbUtil;
+import com.Admin.dao.SubTypeDao;
+import com.Admin.vo.Attr;
+import com.Admin.vo.AttributePager;
+import com.Admin.vo.Brand;
+import com.Admin.vo.BrandPager;
+import com.Admin.vo.SubType;
+import com.Admin.vo.SubTypePager;
+import com.Admin.vo.SuperType;
+import com.Admin.vo.SuperTypePager;
+
+public class SubTypeDaoImpl implements SubTypeDao{
+
+	public List showAllSubTypeBySuperId(int superId) {
+		List subList = new ArrayList();
+		PreparedStatement pstmt = null;	
+		ResultSet rs = null;
+		DbUtil dbUtil = null;
+		try {
+			dbUtil = new DbUtil();
+			String sql = "select * from t_subType where superTypeId=?";
+			pstmt = dbUtil.getCon().prepareStatement(sql);
+			pstmt.setInt(1, superId);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				SubType st = new SubType();
+				st.setSubTypeId(rs.getInt(1));
+				st.setSuperTypeId(rs.getInt(2));
+				st.setTypeName(rs.getString(3));
+				subList.add(st);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+				pstmt.close();
+				dbUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return subList;
+	}
+	
+	public List getSubTypeBySuperTypeId(int superTypeId) {
+		List subTypes = new ArrayList();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = ""	;
+		try {
+			dao = new DbUtil();
+			sql = "select * from t_subType where superTypeId = ?";
+			ps = dao.getCon().prepareStatement(sql);
+			ps.setInt(1, superTypeId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				SubType subType = new SubType();
+				subType.setSubTypeId(rs.getInt("subTypeId"));
+				subType.setSuperTypeId(superTypeId);
+				subType.setTypeName(rs.getString("subTypeName"));
+				subType.setAttrid(rs.getString("attrid"));
+				subTypes.add(subType);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return subTypes;
+	}
+
+	public List getSubTypes(){
+		List subTypes = new ArrayList();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = ""	;
+		try {
+			dao = new DbUtil();
+			sql = "select * from t_subType";
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				SubType subType = new SubType();
+				subType.setSubTypeId(rs.getInt("subTypeId"));
+				subType.setSuperTypeId(rs.getInt("superTypeId"));
+				subType.setTypeName(rs.getString("subTypeName"));
+				subType.setAttrid(rs.getString("attrid"));
+				subTypes.add(subType);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return subTypes;
+	}
+	
+	public boolean addSubType(SubType type) {
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		int subtypeid=0;
+		try {
+			dao = new DbUtil();		//加载驱动和建立连接
+			sql = "insert into t_subType(subtypeid,supertypeid,subtypename) values(?,?,?)";
+			subtypeid=getSubid(type.getSuperTypeId());
+			ps = dao.getCon().prepareStatement(sql);	//ִ执行SQL语句
+			ps.setInt(1, subtypeid);
+			ps.setInt(2, type.getSuperTypeId());		//设置大类类别
+			ps.setString(3, type.getTypeName());		//设置大类名称
+			int i = ps.executeUpdate();		//执行添加
+			if(i != 0) {
+				return true;	//返回true表示添加成功
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	public int getSubid(int superid){
+		int subid=0;
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "";
+		try{
+			dao=new DbUtil();
+			sql="select * from t_subtype where subtypeid like ('"+superid+"%') and rownum=1 order by subtypeid desc";
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				subid=rs.getInt("subtypeid");
+				subid=subid+1;
+			}else{
+				String subtypeid=superid+"01";
+				subid=Integer.parseInt(subtypeid);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return subid;
+	}
+	
+	public boolean checkSubTypeIsExist(String subTypeName) {
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = null;
+		try {
+			daoUtil = new DbUtil();
+			sql = "select * from t_subType where subtypename = ?";
+			ps = daoUtil.getCon().prepareStatement(sql);
+			ps.setString(1, subTypeName);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				daoUtil.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	//添加属性
+	public boolean addAttribute(Attr attr){
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		boolean result=false;
+		try {
+			dao = new DbUtil();		//加载驱动和创建连接
+			sql = "insert into t_attr(attrid,attrname,attrtype,attrvalue,subtypeid) values(seq_attr.nextval,?,?,?,?)";
+			ps = dao.getCon().prepareStatement(sql);	//ִ执行SQL语句
+			ps.setString(1, attr.getAttrname());     //设置属性名称
+			ps.setInt(2, attr.getAttrtype());		//设置属性类别
+			ps.setString(3, attr.getAttrvalue());		//设置属性值
+			ps.setInt(4, attr.getSubtypeid());        //设置小类类别
+			int i = ps.executeUpdate();		//执行添加
+			if(i != 0) {
+				if(updateSubType(attr.getSubtypeid())){
+					result= true;	//返回true添加成功
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	//更新subtype表中的attrid字段
+	public boolean updateSubType(int subTypeId){
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "";
+		String attrid="";
+		boolean result=false;
+		try {
+			dao = new DbUtil();		//加载驱动和建立连接
+			sql = "select attrid from t_attr where subtypeid="+subTypeId;
+			ps = dao.getCon().prepareStatement(sql);	//ִ执行SQL语句
+			rs = ps.executeQuery();
+			while(rs.next()){
+				attrid=attrid+","+String.valueOf(rs.getInt(1));
+			}
+			if(!"".equals(attrid)){
+				attrid=attrid.substring(1,attrid.length());
+				ps=dao.getCon().prepareStatement("update t_subtype set attrid='"+attrid+"' where subtypeid="+subTypeId);
+				int i = ps.executeUpdate();		//执行添加
+				if(i != 0) {
+					result= true;	//返回true表示添加成功
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public boolean addBrand(Brand brand){
+		boolean result=false;
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		try {
+			dao = new DbUtil();		//加载驱动和建立连接
+			sql = "insert into t_brand(subtypeid,brandid,brandname) values(?,seq_brand.nextval,?)";
+			ps = dao.getCon().prepareStatement(sql);	//ִ执行SQL语句
+			ps.setInt(1,brand.getSubtypeid());     //小类编号
+			ps.setString(2, brand.getBrandname());		//品牌名称
+			int i = ps.executeUpdate();		//执行添加
+			if(i != 0) {
+				result= true;	//返回true表示添加成功
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	public List getBrandBySubTypeId(int subTypeId){
+		List brands = new ArrayList();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = ""	;
+		try {
+			dao = new DbUtil();
+			sql = "select * from t_brand where subTypeId = ?";
+			ps = dao.getCon().prepareStatement(sql);
+			ps.setInt(1, subTypeId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Brand brand = new Brand();
+				brand.setBrandid(rs.getInt("brandid"));
+				brand.setBrandname(rs.getString("brandname"));
+				brands.add(brand);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return brands;
+	}
+	public Map getAllSubTypes() {
+		Map subTypeMap = new HashMap();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from t_subtype";
+		try {
+			dao = new DbUtil();
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				SubType subType = new SubType();
+				subType.setSuperTypeId(rs.getInt("supertypeid"));
+				subType.setSubTypeId(rs.getInt("subtypeid"));
+				subType.setTypeName(rs.getString("subtypename"));
+				subTypeMap.put(subType.getSubTypeId(), subType);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return subTypeMap;
+	}
+	public SubTypePager getAllSubTypes(int index, int pageSize) {
+		Map subTypeMap = new HashMap();
+		DbUtil db = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			db = new DbUtil();
+			String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM " +
+						"(SELECT * FROM t_subtype) A WHERE ROWNUM <= ?) WHERE RN >= ?";
+			ps = db.getCon().prepareStatement(sql);
+			ps.setInt(1, index+5);
+			ps.setInt(2, index+1);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				SubType subType = new SubType();
+				subType.setSuperTypeId(rs.getInt("supertypeid"));
+				subType.setSubTypeId(rs.getInt("subtypeid"));
+				subType.setTypeName(rs.getString("subtypename"));
+				subTypeMap.put(subType.getSubTypeId(), subType);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		SubTypePager sp = new SubTypePager();
+		sp.setSubTypeMap(subTypeMap);
+		sp.setPageSize(pageSize);
+		sp.setTotalNum(getAllSubTypes().size());
+		return sp;
+	}
+	
+	public Map getSubTypeBySuperId(int superTypeId) {
+		Map subTypeMap = new HashMap();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from t_subtype where supertypeid=?";
+		try {
+			dao = new DbUtil();
+			ps = dao.getCon().prepareStatement(sql);
+			ps.setInt(1, superTypeId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				SubType subType = new SubType();
+				subType.setSuperTypeId(rs.getInt("supertypeid"));
+				subType.setSubTypeId(rs.getInt("subtypeid"));
+				subType.setTypeName(rs.getString("subtypename"));
+				subTypeMap.put(subType.getSubTypeId(), subType);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return subTypeMap;
+	}
+	public SubTypePager getSubTypeBySuperId(int index, int pageSize,int superTypeId) {
+		Map subTypeMap = new HashMap();
+		DbUtil db = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			db = new DbUtil();
+			String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM " +
+						"(SELECT * FROM t_subtype) A WHERE ROWNUM <= ?) WHERE RN >= ?" +
+						" and superTypeid=?";
+			ps = db.getCon().prepareStatement(sql);
+			ps.setInt(1, index+5);
+			ps.setInt(2, index+1);
+			ps.setInt(3, superTypeId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				SubType subType = new SubType();
+				subType.setSuperTypeId(rs.getInt("supertypeid"));
+				subType.setSubTypeId(rs.getInt("subtypeid"));
+				subType.setTypeName(rs.getString("subtypename"));
+				subTypeMap.put(subType.getSubTypeId(), subType);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		SubTypePager sp = new SubTypePager();
+		sp.setSubTypeMap(subTypeMap);
+		sp.setPageSize(pageSize);
+		sp.setTotalNum(getSubTypeBySuperId(superTypeId).size());
+		return sp;
+	}
+	
+	public AttributePager getAttributeById(int index, int pageSize,int subTypeId) {
+		Map attrMap = new HashMap();
+		DbUtil db = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			db = new DbUtil();
+			String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM " +
+						"(SELECT * FROM t_attr) A WHERE ROWNUM <= ?) WHERE RN >= ?" +
+						" and subTypeid=?";
+			ps = db.getCon().prepareStatement(sql);
+			ps.setInt(1, index+5);
+			ps.setInt(2, index+1);
+			ps.setInt(3, subTypeId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Attr attr = new Attr();
+				attr.setAttrid(rs.getInt("attrid"));
+				attr.setSubtypeid(rs.getInt("subtypeid"));
+				attr.setAttrname(rs.getString("attrname"));
+				attr.setAttrtype(rs.getInt("attrtype"));
+				attr.setAttrvalue(rs.getString("attrvalue"));
+				attrMap.put(attr.getAttrid(), attr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		AttributePager ap = new AttributePager();
+		ap.setAttributeMap(attrMap);
+		ap.setPageSize(pageSize);
+		ap.setTotalNum(getAttributesById(subTypeId).size());
+		return ap;
+	}
+	
+	public Map getAttributesById(int subtypeId) {
+		Map attrMap = new HashMap();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from t_attr where subtypeid="+subtypeId;
+		try {
+			dao = new DbUtil();
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Attr attr=new Attr();
+				attr.setAttrid(rs.getInt("attrid"));
+				attr.setAttrname(rs.getString("attrname"));
+				attr.setAttrtype(rs.getInt("attrtype"));
+				attr.setAttrvalue(rs.getString("attrvalue"));
+				attr.setSubtypeid(rs.getInt("subtypeid"));
+				attrMap.put(attr.getAttrid(), attr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return attrMap;
+	}
+	
+	public boolean updateTypeName(int id,String typeName){
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		boolean flag = false;
+		try {
+			dao = new DbUtil();		//完成驱动加载
+			sql = "update t_subtype set subtypename=? where subtypeid=?";
+			ps = dao.getCon().prepareStatement(sql);	//获取数据库连接并执行SQL
+			ps.setString(1, typeName);	
+			ps.setInt(2, id);
+			int i = ps.executeUpdate();				//执行添加
+			if(i != 0) {
+				flag = true;		//返回true表示添加成功
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
+	public boolean updateBrandName(int id,String brandName){
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		boolean flag = false;
+		try {
+			dao = new DbUtil();		//完成驱动加载
+			sql = "update t_brand set brandname=? where brandid=?";
+			ps = dao.getCon().prepareStatement(sql);	//获取数据库连接并执行SQL
+			ps.setString(1, brandName);	
+			ps.setInt(2, id);
+			int i = ps.executeUpdate();				//执行添加
+			if(i != 0) {
+				flag = true;		//返回true，表示添加成功
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
+	public boolean deleteBrand(int[] ids){
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		Connection conn = null;
+		String sql = "delete from t_brand where brandid=?";
+		try {
+			daoUtil = new DbUtil();
+			conn = daoUtil.getCon();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			for(int j=0;j<ids.length;j++) {
+				ps.setInt(1, ids[j]);
+				ps.addBatch();
+			}
+			int[] k = ps.executeBatch();
+			conn.commit();
+			if(k.length == ids.length) {
+				return true;
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} finally {
+			try {
+				ps.close();
+				daoUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public boolean deleteSubType(int[] ids){
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		Connection conn = null;
+		String sql = "delete from t_subtype where subtypeid=?";
+		try {
+			daoUtil = new DbUtil();
+			conn = daoUtil.getCon();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			for(int j=0;j<ids.length;j++) {
+				ps.setInt(1, ids[j]);
+				ps.addBatch();
+				deleteAttribute(ids[j]);
+				deleteBrand(ids[j]);
+			}
+			int[] k = ps.executeBatch();
+			conn.commit();
+			if(k.length == ids.length) {
+				return true;
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} finally {
+			try {
+				ps.close();
+				daoUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	//删除小类同时将该小类的所有属性一并删除
+	public void deleteAttribute(int subTypeid){
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		Connection conn = null;
+		String sql = "delete from t_attr where subtypeid=?";
+		try {
+			daoUtil = new DbUtil();
+			conn = daoUtil.getCon();
+			ps = conn.prepareStatement(sql);	//获取数据库连接并执行SQL
+			ps.setInt(1, subTypeid);	
+			ps.executeUpdate();				//执行添加
+		}catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} finally {
+			try {
+				ps.close();
+				daoUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//删除小类并将该小类中的所有品牌删除
+	public void deleteBrand(int subTypeid){
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		Connection conn = null;
+		String sql = "delete from t_brand where subtypeid=?";
+		try {
+			daoUtil = new DbUtil();
+			conn = daoUtil.getCon();
+			ps = conn.prepareStatement(sql);	//获取数据库连接并执行SQL
+			ps.setInt(1, subTypeid);	
+			ps.executeUpdate();				//ִ执行更新
+		}catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} finally {
+			try {
+				ps.close();
+				daoUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public Map getAllBrands() {
+		Map brandMap = new HashMap();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from t_brand";
+		try {
+			dao = new DbUtil();
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Brand brand = new Brand();
+				brand.setBrandid(rs.getInt("brandid"));
+				brand.setSubtypeid(rs.getInt("subtypeid"));
+				brand.setBrandname(rs.getString("brandname"));
+				brandMap.put(brand.getBrandid(), brand);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return brandMap;
+	}
+	public BrandPager getAllBrands(int index, int pageSize) {
+		Map brandMap = new HashMap();
+		DbUtil db = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			db = new DbUtil();
+			String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM " +
+						"(SELECT * FROM t_brand) A WHERE ROWNUM <= ?) WHERE RN >= ?";
+			ps = db.getCon().prepareStatement(sql);
+			ps.setInt(1, index+5);
+			ps.setInt(2, index+1);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Brand brand = new Brand();
+				brand.setBrandid(rs.getInt("brandid"));
+				brand.setSubtypeid(rs.getInt("subtypeid"));
+				brand.setBrandname(rs.getString("brandname"));
+				brandMap.put(brand.getBrandid(), brand);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		BrandPager bp = new BrandPager();
+		bp.setBrandMap(brandMap);
+		bp.setPageSize(pageSize);
+		bp.setTotalNum(getAllBrands().size());
+		return bp;
+	}
+	
+	public Map getAllAttributes() {
+		Map attrMap = new HashMap();
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from t_attr";
+		try {
+			dao = new DbUtil();
+			ps = dao.getCon().prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Attr attr=new Attr();
+				attr.setAttrid(rs.getInt("attrid"));
+				attr.setAttrname(rs.getString("attrname"));
+				attr.setAttrtype(rs.getInt("attrtype"));
+				attr.setAttrvalue(rs.getString("attrvalue"));
+				attr.setSubtypeid(rs.getInt("subtypeid"));
+				attrMap.put(attr.getAttrid(), attr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				dao.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return attrMap;
+	}
+	public AttributePager getALLAttributes(int index, int pageSize) {
+		Map attrMap = new HashMap();
+		DbUtil db = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			db = new DbUtil();
+			String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM " +
+						"(SELECT * FROM t_attr) A WHERE ROWNUM <= ?) WHERE RN >= ?";
+			ps = db.getCon().prepareStatement(sql);
+			ps.setInt(1, index+5);
+			ps.setInt(2, index+1);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Attr attr=new Attr();
+				attr.setAttrid(rs.getInt("attrid"));
+				attr.setAttrname(rs.getString("attrname"));
+				attr.setAttrtype(rs.getInt("attrtype"));
+				attr.setAttrvalue(rs.getString("attrvalue"));
+				attr.setSubtypeid(rs.getInt("subtypeid"));
+				attrMap.put(attr.getAttrid(), attr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		AttributePager ap = new AttributePager();
+		ap.setAttributeMap(attrMap);
+		ap.setPageSize(pageSize);
+		ap.setTotalNum(getAllAttributes().size());
+		return ap;
+	}
+	
+	public boolean deleteAttribute(int[] ids){
+		DbUtil daoUtil = null;
+		PreparedStatement ps = null;
+		Connection conn = null;
+		String sql = "delete from t_attr where attrid=?";
+		try {
+			daoUtil = new DbUtil();
+			conn = daoUtil.getCon();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			for(int j=0;j<ids.length;j++) {
+				ps.setInt(1, ids[j]);
+				ps.addBatch();
+			}
+			int[] k = ps.executeBatch();
+			conn.commit();
+			if(k.length == ids.length) {
+				return true;
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} finally {
+			try {
+				ps.close();
+				daoUtil.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public boolean updateAttribute(Attr attr){
+		DbUtil dao = null;
+		PreparedStatement ps = null;
+		String sql = "";
+		boolean flag = false;
+		try {
+			dao = new DbUtil();		//完成驱动加载
+			sql = "update t_attr set attrname=?, attrtype=?,attrvalue=? where attrid=?";
+			ps = dao.getCon().prepareStatement(sql);	//获取数据库连接并执行SQL
+			ps.setString(1, attr.getAttrname());	
+			ps.setInt(2, attr.getAttrtype());
+			ps.setString(3, attr.getAttrvalue());
+			ps.setInt(4, attr.getAttrid());
+			int i = ps.executeUpdate();				//执行添加
+			if(i != 0) {
+				flag = true;		//返回true，表示添加成功
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				dao.close();
+			} catch(SQLException s) {
+				s.printStackTrace();
+			}
+		}
+		return flag;
+	}
+}

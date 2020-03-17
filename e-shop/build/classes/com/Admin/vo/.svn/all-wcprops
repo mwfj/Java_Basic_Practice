@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo
+END
+SuperType.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/code/!svn/ver/87/e-shop/src/com/Admin/vo/SuperType.java
+END
+NoticePager.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/26/e-shop/src/com/Admin/vo/NoticePager.java
+END
+Merchant.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/94/e-shop/src/com/Admin/vo/Merchant.java
+END
+Comment.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/212/e-shop/src/com/Admin/vo/Comment.java
+END
+ADPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/197/e-shop/src/com/Admin/vo/ADPager.java
+END
+OrderSendPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/OrderSendPager.java
+END
+BrandPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/137/e-shop/src/com/Admin/vo/BrandPager.java
+END
+SubTypePager.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/137/e-shop/src/com/Admin/vo/SubTypePager.java
+END
+Product_Attr.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/code/!svn/ver/19/e-shop/src/com/Admin/vo/Product_Attr.java
+END
+Attr.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/vo/Attr.java
+END
+Order.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/code/!svn/ver/202/e-shop/src/com/Admin/vo/Order.java
+END
+Page.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/code/!svn/ver/12/e-shop/src/com/Admin/vo/Page.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/User.java
+END
+SuperTypePager.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/94/e-shop/src/com/Admin/vo/SuperTypePager.java
+END
+Product.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/197/e-shop/src/com/Admin/vo/Product.java
+END
+MerchantPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/94/e-shop/src/com/Admin/vo/MerchantPager.java
+END
+Notice.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/code/!svn/ver/26/e-shop/src/com/Admin/vo/Notice.java
+END
+CommentPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/212/e-shop/src/com/Admin/vo/CommentPager.java
+END
+AttributePager.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/197/e-shop/src/com/Admin/vo/AttributePager.java
+END
+ProdPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/code/!svn/ver/12/e-shop/src/com/Admin/vo/ProdPager.java
+END
+AD.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/code/!svn/ver/197/e-shop/src/com/Admin/vo/AD.java
+END
+OrderNotSendPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/OrderNotSendPager.java
+END
+Brand.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/code/!svn/ver/12/e-shop/src/com/Admin/vo/Brand.java
+END
+Admin.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/vo/Admin.java
+END
+OrderItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/OrderItem.java
+END
+OrderPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/OrderPager.java
+END
+SubType.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/vo/SubType.java
+END
+OrderFreezePager.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/code/!svn/ver/55/e-shop/src/com/Admin/vo/OrderFreezePager.java
+END
+UserPager.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/code/!svn/ver/49/e-shop/src/com/Admin/vo/UserPager.java
+END

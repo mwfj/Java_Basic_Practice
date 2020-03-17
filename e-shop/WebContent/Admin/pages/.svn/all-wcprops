@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/code/!svn/ver/203/e-shop/WebRoot/Admin/pages
+END
+manageOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/203/e-shop/WebRoot/Admin/pages/manageOrder.jsp
+END
+manageNotice.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/manageNotice.jsp
+END
+addNotice.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/27/e-shop/WebRoot/Admin/pages/addNotice.jsp
+END
+updateInform.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/2/e-shop/WebRoot/Admin/pages/updateInform.jsp
+END
+manageDetailMerchant.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/96/e-shop/WebRoot/Admin/pages/manageDetailMerchant.jsp
+END
+addBrand.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/addBrand.jsp
+END
+addSubType.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/addSubType.jsp
+END
+updatePassword.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/2/e-shop/WebRoot/Admin/pages/updatePassword.jsp
+END
+manageDetailOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/code/!svn/ver/203/e-shop/WebRoot/Admin/pages/manageDetailOrder.jsp
+END
+addSuperType.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/addSuperType.jsp
+END
+manageUsers.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/50/e-shop/WebRoot/Admin/pages/manageUsers.jsp
+END
+manageDetailUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/code/!svn/ver/50/e-shop/WebRoot/Admin/pages/manageDetailUser.jsp
+END
+manageProducts.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/217/e-shop/WebRoot/Admin/pages/manageProducts.jsp
+END
+addAttribute.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/addAttribute.jsp
+END
+manageDetailAD.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/manageDetailAD.jsp
+END
+manageDetailBrand.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/manageDetailBrand.jsp
+END
+manageFreezeOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/code/!svn/ver/203/e-shop/WebRoot/Admin/pages/manageFreezeOrder.jsp
+END
+manageDetailSubType.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/manageDetailSubType.jsp
+END
+addProduct.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/addProduct.jsp
+END
+manageDetailSuperType.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/139/e-shop/WebRoot/Admin/pages/manageDetailSuperType.jsp
+END
+manageAD.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/manageAD.jsp
+END
+addAD.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/addAD.jsp
+END
+manageMerchants.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/96/e-shop/WebRoot/Admin/pages/manageMerchants.jsp
+END
+manageComments.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/213/e-shop/WebRoot/Admin/pages/manageComments.jsp
+END
+manageSendOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/code/!svn/ver/217/e-shop/WebRoot/Admin/pages/manageSendOrder.jsp
+END
+tools.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/code/!svn/ver/2/e-shop/WebRoot/Admin/pages/tools.jsp
+END
+adminConter.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/224/e-shop/WebRoot/Admin/pages/adminConter.jsp
+END
+manageDetailAttr.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/manageDetailAttr.jsp
+END
+adminTop.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/code/!svn/ver/217/e-shop/WebRoot/Admin/pages/adminTop.jsp
+END
+manageDetailProduct.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/199/e-shop/WebRoot/Admin/pages/manageDetailProduct.jsp
+END
+manageNotSendOrder.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/203/e-shop/WebRoot/Admin/pages/manageNotSendOrder.jsp
+END

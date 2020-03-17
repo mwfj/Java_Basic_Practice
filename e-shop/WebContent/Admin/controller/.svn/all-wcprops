@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/code/!svn/ver/198/e-shop/WebRoot/Admin/controller
+END
+superTypeController.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/95/e-shop/WebRoot/Admin/controller/superTypeController.jsp
+END
+checkSuperTypeIsExist.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/2/e-shop/WebRoot/Admin/controller/checkSuperTypeIsExist.jsp
+END
+attributeController.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/198/e-shop/WebRoot/Admin/controller/attributeController.jsp
+END
+updateTypeController.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/198/e-shop/WebRoot/Admin/controller/updateTypeController.jsp
+END
+brandController.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/138/e-shop/WebRoot/Admin/controller/brandController.jsp
+END
+checkProdNameIsExist.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/12/e-shop/WebRoot/Admin/controller/checkProdNameIsExist.jsp
+END
+getAttrBySubTypeId.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/20/e-shop/WebRoot/Admin/controller/getAttrBySubTypeId.jsp
+END
+subTypeController.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/138/e-shop/WebRoot/Admin/controller/subTypeController.jsp
+END
+checkSubTypeIsExist.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/2/e-shop/WebRoot/Admin/controller/checkSubTypeIsExist.jsp
+END

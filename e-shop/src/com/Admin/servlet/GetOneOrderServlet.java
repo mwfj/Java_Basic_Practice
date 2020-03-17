@@ -1,0 +1,35 @@
+package com.Admin.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Admin.dao.AdminOrderDao;
+import com.Admin.daoimpl.AdminOrderDaoImpl;
+import com.Admin.vo.Order;
+
+public class GetOneOrderServlet extends HttpServlet {
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String orderId_str = request.getParameter("orderId");	//获取订单ID
+		if(orderId_str != "") {
+			int orderId = 0;
+			orderId = Integer.parseInt(orderId_str);
+			AdminOrderDao adminOrderDao= new AdminOrderDaoImpl();
+			Order order = adminOrderDao.getOneOrder(orderId);	//获取订单详情
+			request.setAttribute("order", order);
+			request.getRequestDispatcher("Admin/pages/manageDetailOrder.jsp").forward(request, response);
+		}
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		this.doGet(request, response);
+	}
+
+}

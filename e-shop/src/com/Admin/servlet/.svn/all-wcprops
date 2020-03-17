@@ -1,0 +1,299 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet
+END
+GetOrderFreezePagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/code/!svn/ver/54/e-shop/src/com/Admin/servlet/GetOrderFreezePagerServlet.java
+END
+GetUserPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetUserPagerServlet.java
+END
+AddADServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/AddADServlet.java
+END
+AdminSendOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/AdminSendOrderServlet.java
+END
+GetNoticePagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/25/e-shop/src/com/Admin/servlet/GetNoticePagerServlet.java
+END
+DeleteUserServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/DeleteUserServlet.java
+END
+GetOneMerchantServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/GetOneMerchantServlet.java
+END
+GetSubTypeByIdServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/136/e-shop/src/com/Admin/servlet/GetSubTypeByIdServlet.java
+END
+GetADPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetADPagerServlet.java
+END
+DeleteTypeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/DeleteTypeServlet.java
+END
+GetOrderSendPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetOrderSendPagerServlet.java
+END
+GetBrandBySubTypeId.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/11/e-shop/src/com/Admin/servlet/GetBrandBySubTypeId.java
+END
+GetNotSendOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/269/e-shop/src/com/Admin/servlet/GetNotSendOrderServlet.java
+END
+UpdateProdServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/UpdateProdServlet.java
+END
+GetSubTypes.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetSubTypes.java
+END
+AdminUpdatePassword.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/216/e-shop/src/com/Admin/servlet/AdminUpdatePassword.java
+END
+GetAttributeByIdServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetAttributeByIdServlet.java
+END
+FreezeOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/54/e-shop/src/com/Admin/servlet/FreezeOrderServlet.java
+END
+AddProdServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/code/!svn/ver/110/e-shop/src/com/Admin/servlet/AddProdServlet.java
+END
+GetOneOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetOneOrderServlet.java
+END
+GetOneUserServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetOneUserServlet.java
+END
+GetMerchantPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/GetMerchantPagerServlet.java
+END
+GetProdPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetProdPagerServlet.java
+END
+DeleteCommentServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/211/e-shop/src/com/Admin/servlet/DeleteCommentServlet.java
+END
+GetSendOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetSendOrderServlet.java
+END
+GetOneADServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetOneADServlet.java
+END
+DeleteProdServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/11/e-shop/src/com/Admin/servlet/DeleteProdServlet.java
+END
+GetOneBrandServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/136/e-shop/src/com/Admin/servlet/GetOneBrandServlet.java
+END
+GetOrderPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetOrderPagerServlet.java
+END
+AddNoticeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/25/e-shop/src/com/Admin/servlet/AddNoticeServlet.java
+END
+GetSuperType.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/servlet/GetSuperType.java
+END
+GetOneSubTypeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetOneSubTypeServlet.java
+END
+DeleteOrderServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/DeleteOrderServlet.java
+END
+AddBrandServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/136/e-shop/src/com/Admin/servlet/AddBrandServlet.java
+END
+GetProdByNameServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/GetProdByNameServlet.java
+END
+GetOneSuperTypeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/GetOneSuperTypeServlet.java
+END
+AddSubTypeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/136/e-shop/src/com/Admin/servlet/AddSubTypeServlet.java
+END
+DeleteNoticeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/DeleteNoticeServlet.java
+END
+GetOneAttributeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetOneAttributeServlet.java
+END
+GetProdBySubType.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetProdBySubType.java
+END
+AddSuperTypeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/AddSuperTypeServlet.java
+END
+AddAttributeServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/servlet/AddAttributeServlet.java
+END
+GetSubTypeBySuperTypeId.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/servlet/GetSubTypeBySuperTypeId.java
+END
+AdminLoginServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/code/!svn/ver/222/e-shop/src/com/Admin/servlet/AdminLoginServlet.java
+END
+GetCommentPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/code/!svn/ver/211/e-shop/src/com/Admin/servlet/GetCommentPagerServlet.java
+END
+GetOneProductServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/GetOneProductServlet.java
+END
+DeleteMerchantServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/code/!svn/ver/93/e-shop/src/com/Admin/servlet/DeleteMerchantServlet.java
+END
+GetOrderNotSendPagerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/code/!svn/ver/48/e-shop/src/com/Admin/servlet/GetOrderNotSendPagerServlet.java
+END
+UpdateADServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/code/!svn/ver/196/e-shop/src/com/Admin/servlet/UpdateADServlet.java
+END

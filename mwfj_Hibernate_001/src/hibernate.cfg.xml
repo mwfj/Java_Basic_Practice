@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- JDBC -->
+		<!-- <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cdxy</property> -->
+		
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jdbc_practice</property>
+		
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password"></property>
+		
+		<!-- 方言 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<!-- ORM映射产生表的策略：update 实体和表的结构和数据 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- 产生的SQL语句显示 -->
+		<property name="hibernate.show_sql">true</property>
+		<!-- 产生的SQL语句格式化 -->
+		<property name="hibernate.format_sql">true</property>
+		<!-- 指定自动生成数据表的策略 
+		<property name="hbm2ddl.auto">update</property>
+		-->
+		<!-- 产生一个session在一个线程上 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- 元数据映射 -->
+		<mapping class="mwfj.demo.hibernate.entities.Student"/>
+		
+	</session-factory>
+	
+</hibernate-configuration>

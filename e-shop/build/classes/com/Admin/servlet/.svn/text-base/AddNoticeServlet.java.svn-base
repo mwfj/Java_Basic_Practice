@@ -1,0 +1,42 @@
+package com.Admin.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Admin.dao.AdminNoticeDao;
+import com.Admin.daoimpl.AdminNoticeDaoImpl;
+import com.Admin.vo.Notice;
+
+public class AddNoticeServlet extends HttpServlet {
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("gb2312");
+		String informTitle = request.getParameter("noticeTitle");
+		String informContent = request.getParameter("noticeContent");
+		if(informTitle != null && informContent != null) {
+			byte[] buf1 = informTitle.getBytes("iso8859-1");
+			byte[] buf2 = informContent.getBytes("iso8859-1");
+			Notice notice = new Notice();
+			notice.setNoticeTitle(new String(buf1));
+			notice.setNoticeContent(new String(buf2));
+			AdminNoticeDao adminNoticeDao =new AdminNoticeDaoImpl();
+			if(adminNoticeDao.addNotice(notice)) {
+				request.setAttribute("message", "添加成功");
+			} else {
+				request.setAttribute("message", "添加失败");
+			}
+			request.getRequestDispatcher("Admin/pages/addNotice.jsp").forward(request, response);
+		}
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.doGet(request, response);
+	}
+
+}

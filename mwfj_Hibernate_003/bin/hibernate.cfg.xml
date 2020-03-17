@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_practice</property> 
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password"></property>
+
+		<!-- 方言 -->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<!-- ORM映射产生表的策略：update 实体和表的结构和数据 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- 产生的SQL语句显示 -->
+		<property name="hibernate.show_sql">true</property>
+		<!-- 产生的SQL语句格式化 -->
+		<property name="hibernate.format_sql">true</property>
+		<!-- 产生一个session在一个线程上 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+
+		<!-- 元数据映射 -->
+		<mapping  class="rico.demo.hibernate.entities.Person"/>
+		<mapping class="rico.demo.hibernate.entities.User"/>
+		<mapping class="rico.demo.hibernate.entities.UserDetail"/>
+		<mapping class="rico.demo.hibernate.entities.Department"/>
+		<mapping class="rico.demo.hibernate.entities.Employee"/>
+		<mapping class="rico.demo.hibernate.entities.Teacher"/>
+		<mapping class="rico.demo.hibernate.entities.Course"/>
+		<mapping class="rico.demo.hibernate.entities.Product"/>
+		<mapping class="rico.demo.hibernate.entities.Order"/>
+		<mapping class="rico.demo.hibernate.entities.OrderItems"/>
+		<mapping class="rico.demo.hibernate.entities.Category"/>
+		<mapping class="rico.demo.hibernate.entities.Fish"/>
+		<mapping class="rico.demo.hibernate.entities.Animal"/>
+		<mapping class="rico.demo.hibernate.entities.Bird"/>
+		<mapping class="rico.demo.hibernate.entities.Rabbit"/>
+		<mapping class="rico.demo.hibernate.entities.Student"/>
+		
+	</session-factory>
+</hibernate-configuration>

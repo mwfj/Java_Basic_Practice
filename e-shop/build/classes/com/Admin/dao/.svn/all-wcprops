@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/code/!svn/ver/46/e-shop/src/com/Admin/dao
+END
+SubTypeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/code/!svn/ver/194/e-shop/src/com/Admin/dao/SubTypeDao.java
+END
+AdminCommentDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/code/!svn/ver/209/e-shop/src/com/Admin/dao/AdminCommentDao.java
+END
+AdminProdDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/194/e-shop/src/com/Admin/dao/AdminProdDao.java
+END
+SuperTypeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/91/e-shop/src/com/Admin/dao/SuperTypeDao.java
+END
+AdminLoginDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/2/e-shop/src/com/Admin/dao/AdminLoginDao.java
+END
+AdminOrderDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/code/!svn/ver/52/e-shop/src/com/Admin/dao/AdminOrderDao.java
+END
+AdminUserDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/code/!svn/ver/91/e-shop/src/com/Admin/dao/AdminUserDao.java
+END
+AdminNoticeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/code/!svn/ver/194/e-shop/src/com/Admin/dao/AdminNoticeDao.java
+END
