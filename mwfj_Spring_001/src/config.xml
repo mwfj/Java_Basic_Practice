@@ -7,7 +7,7 @@
 
 	<bean 
 		id="user"
-		class="rico.demo.spring.entities.User">
+		class="mwfj.demo.spring.entities.User">
 		<property name="id" value="100"></property>
 		<property name="loginName" value="admin"></property>
 		<property name="loginPassword" value="admin"></property>
@@ -37,9 +37,9 @@
 		</property>
 	</bean>
 
-	<bean id="userDao" class="rico.demo.spring.dao.UserDaoImpl"></bean>
+	<bean id="userDao" class="mwfj.demo.spring.dao.UserDaoImpl"></bean>
 
-	<bean id="userService" class="rico.demo.spring.service.UserServiceImpl">
+	<bean id="userService" class="mwfj.demo.spring.service.UserServiceImpl">
 		<!-- setter -->
 		<!-- <property name="userDao" ref="userDao"></property> -->
 	
