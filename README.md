@@ -176,11 +176,12 @@ Spring MVC+MyBatis+Spring(老师认为最好的组合)
 *   prsist(): 类似于hibernate的save()，使对象由临时状态，变为持久化状态,但是与save()不同的是, <br>***注意:*** *若对象已经通过set方法设置ID，即ID已经存在，那么persist()不会执行INSERT方法,而会抛出异常。*
 *   remove(): 类似于hibernate中Session的delete()，把对象对应的记录从数据库中删除。但是与hibernate不同的是该方法只能使用在持久化对象上，而不能使用在游离对象上。
 *   merge(): 类似于hibernate的saveOrUpdate()
-> *   若调用的对象为临时对象，则会创建一个新的对象并将临时对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令
-> *   若调用的对象为游离状态，即传入的对象有OID。
-		1.  此时如果entityManager没有该对象,数据库中也没有对应的记录,  JPA则会创建一个新的对象并将该游离对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令。<br>
-		2.  此时如果entityManager没有该对象,但是数据库中有对应的记录，则JPA会在数据库中查询该记录并且返回一个带有查询结果的对象;并且将游离状态对象的属性赋予给该查询结果的对象，最后对该对象进行update操作。
-		3. 此时如果entityManager有该对象,JPA会把游离对象的属性复制到EntityManager缓存的对象中，EntityManager缓存执行update语句
+-  若调用的对象为临时对象，则会创建一个新的对象并将临时对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令
+-   若调用的对象为游离状态，即传入的对象有OID。
+
+	+ 1.  此时如果entityManager没有该对象,数据库中也没有对应的记录,  JPA则会创建一个新的对象并将该游离对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令。<br>
+	+ 2.  此时如果entityManager没有该对象,但是数据库中有对应的记录，则JPA会在数据库中查询该记录并且返回一个带有查询结果的对象;并且将游离状态对象的属性赋予给该查询结果的对象，最后对该对象进行update操作。
+	+ 3. 此时如果entityManager有该对象,JPA会把游离对象的属性复制到EntityManager缓存的对象中，EntityManager缓存执行update语句
 
 *  flush():与hibernate中Session的flush()相同，强制将持久化上下文中所有未在数据库中保存的实体状态信息保存到数据库中。默认情况下，在提交事务的时候才会刷新缓存
 *  refresh()：与hibernate中Session的refresh()相同,更新数据库的实例属性值
