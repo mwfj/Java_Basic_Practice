@@ -178,7 +178,6 @@ Spring MVC+MyBatis+Spring(老师认为最好的组合)
 *   merge(): 类似于hibernate的saveOrUpdate()
 	> *   若调用的对象为临时对象，则会创建一个新的对象并将临时对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令
 	> *   若调用的对象为游离状态，即传入的对象有OID。
-	>
 		>*   1) 此时如果entityManager没有该对象,数据库中也没有对应的记录,  JPA则会创建一个新的对象并将该游离对象的属性拷贝到新建的对象中，并将新建的对象进行持久化操作，调用INSERT命令。<br>
 		>*   2) 此时如果entityManager没有该对象,但是数据库中有对应的记录，则JPA会在数据库中查询该记录并且返回一个带有查询结果的对象;并且将游离状态对象的属性赋予给该查询结果的对象，最后对该对象进行update操作。
 		>*   3）此时如果entityManager有该对象,JPA会把游离对象的属性复制到EntityManager缓存的对象中，EntityManager缓存执行update语句
