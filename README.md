@@ -1360,7 +1360,7 @@ Spring Construction：
 * b.**Spring的事务传播行为**: 当前的事务方法被另一个事务方法调用的时候，被调用的事务方法如何传递给事务。<br>
 通过在`@Transaction`注解中添加 `propagation`属性或<br>在XML文件中加入`<tx:advice>` 的`<tx:method>`来设置事务的传播行为;
 
-	```
+	```xml
 		<tx:advice>
 			<tx:attributes>
 				<tx:method>
@@ -1368,24 +1368,24 @@ Spring Construction：
 		</tx:advice>
 	```
 
-	>* REQUIRED(默认): 如果另外一个事务有事务在运行，当前方法就在这个事务内运行，否则就启用一个新的事务并且在这个新的事务内运行。
-	>* REQUIRED_NEW: 当前方法必须启用一个新的事务，然后在这个新事务内运行。如果另外一个方法存在事务，就将这个事务挂起。当新的事务运行完毕之后，才运行被挂起的事务。
+	+ REQUIRED(默认): 如果另外一个事务有事务在运行，当前方法就在这个事务内运行，否则就启用一个新的事务并且在这个新的事务内运行。
+	+ REQUIRED_NEW: 当前方法必须启用一个新的事务，然后在这个新事务内运行。如果另外一个方法存在事务，就将这个事务挂起。当新的事务运行完毕之后，才运行被挂起的事务。
 
 * c. **Spring的事务的隔离级别:** 由于并发事务容易产生 脏读:读取了已经被其他事物更新但还没有提交的数据;
-	* 幻读: 两个事务同时读取一个数据,当其中的一个事务插入数据的时候，另一个事务会显示这些临时数据;
-	* 不可重复读: 两个事务同时读取一个数据时，当一个事务对该数据进行更新而未提交的时候，另一个事务会读取这些被临时更改的数据<br>所以有时候需要将事务进行隔离; 在Spring的时候可以指定隔离级别, 在`@Transaction` 注解中加入` Isolation`属性对事务的隔离级别进行设置,<br>在XML文件中在`<tx:advice>` 的`<tx:method>`进行设置操作，其中最常用的取值是**READ_COMMITTED**。
+	+ 幻读: 两个事务同时读取一个数据,当其中的一个事务插入数据的时候，另一个事务会显示这些临时数据;
+	+ 不可重复读: 两个事务同时读取一个数据时，当一个事务对该数据进行更新而未提交的时候，另一个事务会读取这些被临时更改的数据<br>所以有时候需要将事务进行隔离; 在Spring的时候可以指定隔离级别, 在`@Transaction` 注解中加入` Isolation`属性对事务的隔离级别进行设置,<br>在XML文件中在`<tx:advice>` 的`<tx:method>`进行设置操作，其中最常用的取值是**READ_COMMITTED**。
 
-		```
-		<tx:advice>
-			<tx:attributes>
-				<tx:method>
-			</tx:attributes>
-		</tx:advice>
-		```
+	```xml
+	<tx:advice>
+		<tx:attributes>
+			<tx:method>
+		</tx:attributes>
+	</tx:advice>
+	```
 
 * d. **Spring的事务的回滚设置:** 默认情况下Spring的声明是事务对所有的运行时异常(Runtime Exception)进行回滚。也可以在`@Transaction`进行回滚的设置。<br>使用`"noRollbackFor ={.class}"`或`<tx:advice> 的<tx:method>`设置某些类的操作不会回滚。通常情况下,去默认值即可。
 
-	```
+	```xml
 		<tx:advice>
 			<tx:attributes>
 				<tx:method>
@@ -1395,18 +1395,18 @@ Spring Construction：
 	```
 * e. **Spring的事务的只读属性:** 在`@Transaction` 或`<tx:advice> 的<tx:method>`设置`readOnly= "默认为false"` 进行是否应用只读操作进行设置,表示这个事务只读取设置但不更新数据。
 
-	```
+	```xml
 		<tx:advice>
 			<tx:attributes>
 				<tx:method>
 			</tx:attributes>
 		</tx:advice>
 	```
-设置为只读可以帮助数据库引擎优化事务, 当readOnly="true"的时候, 事务的只读属性开启。
+	设置为只读可以帮助数据库引擎优化事务, 当readOnly="true"的时候, 事务的只读属性开启。
 
 * f. **Spring的事务的过期属性**: 在`@Transaction` 或xml的`<tx:advice>的<tx:method>`设置`timeout`属性(以秒为单位)，来指定强制回滚之前，事务可以占用的时间。
 
-	```
+	```xml
 		<tx:advice>
 			<tx:attributes>
 				<tx:method>
