@@ -2133,7 +2133,7 @@ properties 文件内容:<br>
 利用REST的风格发送PUT,DELETE请求的步骤
 	* a. 在web.xml中进行配置  
 
-	```  
+	```  xml
 		<!--org.springframework.web.filiter.
 		HiddenHttpMethodFiliter将POST方法转化为delete请求或put请求-->
 		<filter>HiddenHttpMethodFiliter </filter>
@@ -2154,13 +2154,12 @@ properties 文件内容:<br>
 
 * `@RequestParam `注解来绑定请求参数 即:将请求参数传递给请求方法。请求参数就是URL中以**"?"**开头的传参方式<br>
 	 eg: /url?uesrname = ergou.
->
-	>* 其中`"value"`属性表示相应的参数名,
-	>* `"required"`属性表示是否必须绑定参数,若为`true` 则表示请求参数中一定要包含对应请求参数，若不存在，则抛出异常。
-	>* "defaultValue" 表示请求参数的默认值，即当请求方法无法获得相应的请求参数或请求参数类型不一致的时候，请求方法的相应入参就会使用请求参数的默认值
+	+ 其中`"value"`属性表示相应的参数名,
+	+ `"required"`属性表示是否必须绑定参数,若为`true` 则表示请求参数中一定要包含对应请求参数，若不存在，则抛出异常。
+	+ "defaultValue" 表示请求参数的默认值，即当请求方法无法获得相应的请求参数或请求参数类型不一致的时候，请求方法的相应入参就会使用请求参数的默认值
 	 eg:
 
-	```
+	```java
 		@RequestMapping("/helloWorld")
 		String testRequestParam(
 			@RequestParam(value = "username") String username,
@@ -2171,47 +2170,47 @@ properties 文件内容:<br>
 		        }
 	```
 
-	* `@RequestHeader` 注解用来映射HTTP报文请求头信息,并把HTTP报文的请求头信息传递给请求方法入参列表中。 用法与上面的`@RequestParam`类似,使用次数较少。
-	* `@CookieValue` 注解用来映射一个Cookie值,并把Cookie信息传递给请求方法入参列表中。属性方法与 `@RequestParam`相同,用法也与上面的`@RequestParam`类似,使用次数较少。
-	*  **(重要)使用POJO(简单java对象)对象绑定请求参数:** Spring MVC会自动按照请求参数名和POJO属性名进行自动匹配并且自动为改为向填充属性值。<br> 支持级联属性。例如：`user.address, dpid.address.tel`
-		*  a. 首先创建一个实体Entity, 之后再建立一个Entity映射的级联实体Address并在Entity 实体中创建属性`"username","age","email"` 并在创建实体引用属性 address. 在实体Address 中创建属性 `province,city`
-		*  b. 之后在JSP(View页面)中加入一个表单,并按照Entity属性进行依次赋值
+	+ `@RequestHeader` 注解用来映射HTTP报文请求头信息,并把HTTP报文的请求头信息传递给请求方法入参列表中。 用法与上面的`@RequestParam`类似,使用次数较少。
+	+ `@CookieValue` 注解用来映射一个Cookie值,并把Cookie信息传递给请求方法入参列表中。属性方法与 `@RequestParam`相同,用法也与上面的`@RequestParam`类似,使用次数较少。
+	+  **(重要)使用POJO(简单java对象)对象绑定请求参数:** Spring MVC会自动按照请求参数名和POJO属性名进行自动匹配并且自动为改为向填充属性值。<br> 支持级联属性。例如：`user.address, dpid.address.tel`
+		-  a. 首先创建一个实体Entity, 之后再建立一个Entity映射的级联实体Address并在Entity 实体中创建属性`"username","age","email"` 并在创建实体引用属性 address. 实体Address 中创建属性 `province,city`
+		-  b. 之后在JSP(View页面)中加入一个表单,并按照Entity属性进行依次赋值
 
-			```
-			<form action = "/testPOJO" method = "post">
-			<!--在表单input标签中,name属性一定要与请求方法的入参实体一一对应。
-			若有实体中引用实体属性，那么name属性需要用
-			 "Entity中的引用实体参数.引用实体方法来进行赋值"
-			例如: 若想要引用Entity实体中的address引用实体类型中的属性city
-			需要给表单input中的name属性赋值为address.city
-			这样Spring MVC就可以通过<input>中的name属性
-			来给实体中的相对的属性进行赋值操作-->
-				username:<input type = "text" name = "username"/>
-				password:<input type = "password" name = "password"/>
-				email:   <input type = "text" name = "email"/>
-				age:         <input type = "text" name = "age"/>
-				city:        <input type = "text"
-								 name = "address.city"/>
-				province:<input type = "text"
-								name = "address.province"/>
-				 <input type = "submit" name = "submit"/>
-			</form>
-			```
+		```xml
+		<form action = "/testPOJO" method = "post">
+		<!--在表单input标签中,name属性一定要与请求方法的入参实体一一对应。
+		若有实体中引用实体属性，那么name属性需要用
+		 "Entity中的引用实体参数.引用实体方法来进行赋值"
+		例如: 若想要引用Entity实体中的address引用实体类型中的属性city
+		需要给表单input中的name属性赋值为address.city
+		这样Spring MVC就可以通过<input>中的name属性
+		来给实体中的相对的属性进行赋值操作-->
+			username:<input type = "text" name = "username"/>
+			password:<input type = "password" name = "password"/>
+			email:   <input type = "text" name = "email"/>
+			age:         <input type = "text" name = "age"/>
+			city:        <input type = "text"
+							 name = "address.city"/>
+			province:<input type = "text"
+							name = "address.province"/>
+			 <input type = "submit" name = "submit"/>
+		</form>
+		```
 
 		* c. 在Spring MVC Handler控制器中使用@RequestMapping 来获得URL中的表单，并且在入参列表中传入即将被赋值的实体类<br>这样Spring MVC会自动按照请求参数名和POJO对应的属性名与传入的表单的信息进行自动匹配并且自自动向POJO中填充属性值。
 
-			```
-			@RequestMapping("/testPOJO", RequestMethod.POST)
-			Public String testPOJO(Entity entity){
-				Systom.out.println(entity);
-				return "success";
-			}
-			```
+		```xml
+		@RequestMapping("/testPOJO", RequestMethod.POST)
+		Public String testPOJO(Entity entity){
+			Systom.out.println(entity);
+			return "success";
+		}
+		```
 
 * 使用**Servlet原生的API**当做目标方法入参:<br>
 	其中在Spring MVC可以接受Servlet中的: `HttpServletRequest`, `HttpServletResponse`, `HttpSession, java.Security.Pricinpal`,`Local`, `InputStream`, `OutputSteam`,` Reader`, `Writer`.<br>例如:
 
-	```
+	```java
 	@RequestMapping("/helloWorld")
 	public void testServlerAPI(HttpServletRequest request,
 							 HttpServletResponse response,
@@ -2222,28 +2221,29 @@ properties 文件内容:<br>
 	```
 
 * Spring MVC 处理模型数据:
-	* a. ModelAndView: 如果控制器处理方法的返回值为ModelAndView, 那么这个返回值即包含了模型数据信息,又包含了视图信息。<br>
+	+ a. ModelAndView: 如果控制器处理方法的返回值为ModelAndView, 那么这个返回值即包含了模型数据信息,又包含了视图信息。<br>
 	eg.  
 
-		```
-		@RequestMapping("/modelandview")
-		public ModelAndView testModelAndView(){
-			String name = "success";
-			ModelAndView myModelAndView = new ModelAndView(name);
-			//添加模型数据到ModelAndView
-			myModelAndView.addObject("time, new Date()");
-			//addObject为key-value 的形式
-			return myModelAndView;
-		}
-		```
+	```java
+	@RequestMapping("/modelandview")
+	public ModelAndView testModelAndView(){
+		String name = "success";
+		ModelAndView myModelAndView = new ModelAndView(name);
+		//添加模型数据到ModelAndView
+		myModelAndView.addObject("time, new Date()");
+		//addObject为key-value 的形式
+		return myModelAndView;
+	}
+	```
+	
 	然后再在view页面中使用EL表达式` ${requestScope.key值 }`的方式获取ModelAndView的返回值(**其中key值为myModelAndView.addObject的key值**)<br>**这是因为Spring MVC会把ModelAndView 的model中的数据放入request的请求域对象中。**
-	* b. Spring MVC的 Map 和`Model: Spring MVC` 在内部使用一个`org.springframework.ui.Model`的接口存储模型数据。<br>**主要是map类型。**<br>
+	
+	+ b. Spring MVC的 Map 和`Model: Spring MVC` 在内部使用一个`org.springframework.ui.Model`的接口存储模型数据。<br>**主要是map类型。**<br>
 具体步骤:
-	>
-		>* 1). Spring MVC在调用方法前会创建一个隐含的模型对象数据作为模型数据的存储容器
-		>* 2). 如果方法的入参类型为Map 或者 Model或者 ModelMap类型的话, Spring MVC会将隐含的模型引用传递给这些参数。<br>在方法体内，开发者可以通过这些入参对象来访问模型中的所有数据, 同时还可以在模型中添加新的属性数据。<br>例如:
+		- 1). Spring MVC在调用方法前会创建一个隐含的模型对象数据作为模型数据的存储容器
+		- 2). 如果方法的入参类型为Map 或者 Model或者 ModelMap类型的话, Spring MVC会将隐含的模型引用传递给这些参数。<br>在方法体内，开发者可以通过这些入参对象来访问模型中的所有数据, 同时还可以在模型中添加新的属性数据。<br>例如:
 
-		```
+		```java
 		@RequestMapping("testMap")
 		public String testMap(Map<String, Object> map){
 		map.put("names", Arrays.asList("Tom","Jerry","Jack"));
@@ -2253,35 +2253,35 @@ properties 文件内容:<br>
 		同样的，**Map Model 会在Request域中进行传值**。<br>所以在JSP(view 页面中) 使用El表达式 `${requestScope.map的key值 } `可以在页面输出相应的map的value值。<br>在Spring MVC 传值的过程当中, Spring MVC实际上是吧方法里的Map类型转化成了ModelAndView中的ModelMap类型，**因此map可以在Spring MVC中进行传递**。
 
 * `@SessionAttributes:` 若希望多个请求之间共用某个模型属性数据, 则可以在控制器类上标注`@SessionAttribute`, Spring MVC会将对应的属性即放在**Request域中又会放在HttpSession中**。
-	* a. `@SessionAttributes` 除了可以通过属性名指定需要放到会话的属性外(value属性值),还可以通过模型属性的对象类型来指定哪些模型属性需要放在会话当中(type属性值)。<br>其中`type属性`会将隐含模型中所有类型为指定类的属性放入会话中,**如果是一个map类型, 则会判断Map的values值的类型是否是指定的类型, 如果是同样会被放入HttpSession中**。<br> 比如`@SessionAttributes(type = User.class)`则是指定所有User.class属性放入会话中。<br>
+	+ a. `@SessionAttributes` 除了可以通过属性名指定需要放到会话的属性外(value属性值),还可以通过模型属性的对象类型来指定哪些模型属性需要放在会话当中(type属性值)。<br>其中`type属性`会将隐含模型中所有类型为指定类的属性放入会话中,**如果是一个map类型, 则会判断Map的values值的类型是否是指定的类型, 如果是同样会被放入HttpSession中**。<br> 比如`@SessionAttributes(type = User.class)`则是指定所有User.class属性放入会话中。<br>
 若想要放入多个class类型, 则需要使用`{}`并且类之间用`","` 隔开。<br> 例如:<br>`@SessionAttributes(type = {User.class, Person.class, Address.class})`
-	* b. 同样的@SessionAttributes的values 属性会将指定的属性值放入HttpSession当中。如果被指定属性是一个map类型，则Spring MVC会根据这个map的key值来判断是否将其放入HttpSession中。<br>比如: <br>`@SessionAttributes(values = {"name", "age", "email"})`<br>***注意:*** `@SessionAttributes` 只能放在类的上面,而不能放在方法上。 **如果是传入的类型是一个map类型, 那么values会从map的key值上进行筛选, 而type会从map中value值的类型上进行筛选**。<br>eg:
+	+ b. 同样的@SessionAttributes的values 属性会将指定的属性值放入HttpSession当中。如果被指定属性是一个map类型，则Spring MVC会根据这个map的key值来判断是否将其放入HttpSession中。<br>比如: <br>`@SessionAttributes(values = {"name", "age", "email"})`<br>***注意:*** `@SessionAttributes` 只能放在类的上面,而不能放在方法上。 **如果是传入的类型是一个map类型, 那么values会从map的key值上进行筛选, 而type会从map中value值的类型上进行筛选**。<br>eg:
 
-		```
-		@Controller
-		@RequestMapping("/helloWorld")
-		@SessionAttributes(types = {String.class},
-							value= {"user", "school"})
-		public class SessionAttributesTest{
-			@RequestMapping("/sessionAttributes")
-			public String testSession(Map<String, Object> map){
+	```java
+	@Controller
+	@RequestMapping("/helloWorld")
+	@SessionAttributes(types = {String.class},
+						value= {"user", "school"})
+	public class SessionAttributesTest{
+		@RequestMapping("/sessionAttributes")
+		public String testSession(Map<String, Object> map){
 
-			User user =
-			new user("SecondDog", "password", "SecondDog@qq.com",26);
-				map.put("user", user);
-				map.put("school", "BaoBao");
-				return "success"
-				}
+		User user =
+		new user("SecondDog", "password", "SecondDog@qq.com",26);
+			map.put("user", user);
+			map.put("school", "BaoBao");
+			return "success"
 			}
-		```
+		}
+	```
 
-		这是在JSP(view 页面) 无论通过requestScope还是通过 SessionScope 都可以获取到map里的value内容。
+	这是在JSP(view 页面) 无论通过requestScope还是通过 SessionScope 都可以获取到map里的value内容。
 
 * **(重要)`@ModelAttribute`:** 当遇到数据中有些数据不能被修改时, 如果此时新建一个对象并从View层的表单中获取相应的信息时，那个不能被修改的数据肯定是不能从表单中获取的，而是应该保持数据库中原有的信息不变。那么此时新建的对象肯定无法获取这个值。因为新建对象的值是从表单中获取的，而表单中并没有这个值。<br>`@ModelAttribute`就是用来解决这个问题的, 在从表单获取信息之前`@ModelAttribute`会从将数据库中对应的数据并存在对象中, 那么这个对象里的值就对应着数据库里的值而不是一个新建的空对象。<br>这就使得当该对象从表单中获取数据的时候,只会更新那些需要更新的数据,而对于那些不需要更新的或者不能更新的数据 会维持原状不变。<br>实际上标有@ModelAttribute的方法会在任何一个目标方法运行之前被Spring MVC调用。<br>
 **步骤**:
-	* a. 创建**Handler** 控制器并且接受表单里的内容，并修改从数据库中得到的object类
+	+ a. 创建**Handler** 控制器并且接受表单里的内容，并修改从数据库中得到的object类
 
-	```
+	```java
 		@Controller
 		@RequestMapping("/Springmvc")
 		public class SessionAttributesTest{
@@ -2292,9 +2292,9 @@ properties 文件内容:<br>
 		}
 	```
 
-	* b. 创建表单, 并在表单中存入相应的数据。除了password,因为该数据不能被修改。之后将表单发送给Handler控制器
+	+ b. 创建表单, 并在表单中存入相应的数据。除了password,因为该数据不能被修改。之后将表单发送给Handler控制器
 
-	```
+	```xml
 	<form action = "/Springmvc/helloWorld" method = "post">
 		<input type = "hidden" name = "id" value = "1" /><br>
 		name:  <input type = "text" name = "name" value = "SecondDog" /><br>
@@ -2302,9 +2302,10 @@ properties 文件内容:<br>
 		<input type = "submit" value = "submit">
 	</form>
 	```
-	* c. 构建一个标有@ModelAttribute的方法, 从数据库中取出数据并存入对象中<br>eg:
+	
+	+ c. 构建一个标有@ModelAttribute的方法, 从数据库中取出数据并存入对象中<br>eg:
 
-	```
+	```java
 		@ModelAttribute
 	           public getObject( @RequestParam(
 	           			value = "id", required = false) Integer id,
@@ -2329,7 +2330,7 @@ properties 文件内容:<br>
 * c. Spring MVC将上述对象传入给目标方法的当做入参值。
 * **注意:** 在 `@ModelAttribute`修饰方法中, **放入map的数据的键(key值),必须要与目标方法的入参类型第一个字母小写之后的字符串一致**。<br>例如 加入`@ModelAttribute`的方法中`map.put("user", user); `的键值为"user", 那么**在目标方法的入参列表中的类型必须要有与"user"对应的User类型**<br>即:<br>
 
-	```
+	```java
 		@RequestMapping("/helloWorld")
 		public String testModelAttribute(User user){
 			return "success";
@@ -2341,15 +2342,15 @@ properties 文件内容:<br>
 
 * a. 首先回去调用 `@ModelAtrribute `注解修饰的方法。<br> `Object attribute = attributeMethodToInvoke.invoke(handler, args);`<br>实际上把`@ModelAtrribute`所标注的方法中的Map类型值, 放入了`implicitModel(同样是一个返回map类型的方法)`中
 * b. 解析请求处理器的目标参数(`resolveHandlerArguments(handlerMethodInvoke, handler, webRequest, implicitModel )`),<br>实际上该目标参数来自于WebDataBinder对象的target属性:
-	* 1). 创建WebBinder对象, 并确定来自其父类的属性值 即从数据库中获得的对象的属性值:<br>
-		* ` target`: 首先从implicitModel中查找attrName 对应的属性值,若存在,则赋值给target。
+	- 1). 创建WebBinder对象, 并确定来自其父类的属性值 即从数据库中获得的对象的属性值:<br>
+		+ ` target`: 首先从implicitModel中查找attrName 对应的属性值,若存在,则赋值给target。
 			* **若不存在,** 则需要验证当前Handler中 是否使用了`@SessionAtrribute `进行修饰。
 			* 若修饰了,且`@SessionAttribute`刚好有与对应AttrName的字符串,并且在这个对应的字符串刚好有相应的value值的时候。会将该value值赋给target属性。
 			* 否则 即 `@SessionAttribute中`与`AttrName`匹配的字符串，并没有对应的`value`类型，Spring MVC会抛出**SessionAttribute Exception**异常。
 			* 若**Handler** 没有使用`@SessionAtrribute`或 `@SessionAtrribute`没有使用`Value`值指定的key键和AttributeName相互匹配, 则通过反射机制创建一个POJO对象。
-		* `objectName:` 若此时从AttrName接受的属性为空**("")**,则ObejctName的首字母小写。即目标方法入参类型的第一个字母小写,并且对应的value值会赋值给target属性<br>**注意**: **`AttrName` 目标方法若POJO属性使用了`@ModelAttribute`来修饰, 那么`AttrName`值就是`@ModelAttribute`的值。否则的话才是目标方法入参类名的首字母小写对应的字符串**<br>例如: <br>
+		+ `objectName:` 若此时从AttrName接受的属性为空**("")**,则ObejctName的首字母小写。即目标方法入参类型的第一个字母小写,并且对应的value值会赋值给target属性<br>**注意**: **`AttrName` 目标方法若POJO属性使用了`@ModelAttribute`来修饰, 那么`AttrName`值就是`@ModelAttribute`的值。否则的话才是目标方法入参类名的首字母小写对应的字符串**<br>例如: <br>
 
-	```
+	```java
 		@RequestMapping("/helloWorld")
 		public String testModelAttribute(
 					@ModelAtrribute("user") User user){
@@ -2357,9 +2358,9 @@ properties 文件内容:<br>
 		}
 	```
 
-	* 2). Spring MVC 会把表单的请求参数赋给了WebDataBinder 的Target对应的属性。(通过源码中的doBInder())
-	* 3). **(重要)Spring MVC** 会把WebDateBinder的AttributeName 和target赋值给 implicitModel， 进而传递到Request域对象中。
-	* 4). 把WebDataBinder作为的target作为参数赋值给目标方法入参值。
+	- 2). Spring MVC 会把表单的请求参数赋给了WebDataBinder 的Target对应的属性。(通过源码中的doBInder())
+	- 3). **(重要)Spring MVC** 会把WebDateBinder的AttributeName 和target赋值给 implicitModel， 进而传递到Request域对象中。
+	- 4). 把WebDataBinder作为的target作为参数赋值给目标方法入参值。
 
 <br><br><br><br>
 
