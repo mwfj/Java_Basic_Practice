@@ -705,7 +705,7 @@ public List findStudents(String name,int age){
 
 	+ 并且还要在XML中添加
 
-	```
+	```xml
 		<class-cache usage = "上述的四个并发策略" class="包名+类名">
 		(也可以在.hbm.xml中进行配置)
 	```
@@ -730,7 +730,7 @@ public List findStudents(String name,int age){
 
 * Ehcache的查询缓存: 默认情况下，设置的缓存对于HQL和QBC是无效的。可以通过调用`query.setCacheable(true)` 来设置查询缓存。<br>
 	+ 并且要在xml文件中加入
-		```
+		```xml
 		<property name="cache.use_query_cache"></property>
 		```
 		
@@ -772,7 +772,7 @@ Spring Construction：
 * b. 建立Spring Bean Configuration 配置文件
 * c. 在配置文件里配置bean
 
-
+	```xml
 		<bean id="" class= "包名.类名"(需要映射的实体类的位置)>
 		这里的标识符id是唯一的
 		<property
@@ -780,7 +780,7 @@ Spring Construction：
 			并将首字母小写" value = "给name赋的值">
 		</property>
 		</bean>
-
+	```
 
 	+ **字面值:**可以通过字符串表示的值，通过`<value>`元素或value属性进行注入，当包含特殊字符  的时候可以使用`<![CDATA[]]>`将该特殊字符包裹起来。
 	+  Bean之间的引用:
@@ -831,7 +831,7 @@ Spring Construction：
 
 	* 2) 从IOC容器中获取Bean实例
 
-		```
+		```java
 		Entity = ApplicationContext.getBean("XML文件中<bean>的id值");
 		```
 
