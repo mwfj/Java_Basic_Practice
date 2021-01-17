@@ -421,11 +421,11 @@ transaction.begin();
 
 	> *  插入：无论先存One和Many的哪一端，都会有insert和update语句 而且先存Many时update语句相对较多。主要是因为One的一端和Many的一端互相都维护关联关系，所以会多出update。**可以通过设置set标签中的inverse来决定哪一方维护表之间的关系，true的一方为被动维护，而false的一方为主动维护。**通常在一对多的情况下设置Many为主控方有助于性能的改善。**若设为One的一端是主控会多出Update语句。建议先save One的一端。**
 	> *  查询：
-	    >* 1. 查询时多Many一端的集合使用延迟加载
-	    >* 2. 返回Many一段的集合是hibernate的集合类型，该类型具有延迟加载和存放代理对象的功能。
-	    >* 3. 若调用前关闭session可能会抛出lazyInitialization Exception
-	    >* 4. 在需要使用集合元素的时候set集合才会初始化。
-	>
+	   - 1. 查询时多Many一端的集合使用延迟加载
+	    - 2. 返回Many一段的集合是hibernate的集合类型，该类型具有延迟加载和存放代理对象的功能。
+	    - 3. 若调用前关闭session可能会抛出lazyInitialization Exception
+	    - 4. 在需要使用集合元素的时候set集合才会初始化。
+	   
 	>* `<set>`标签的cascade属性(开发时不建议使用，建议使用手工的方式进行添加，删除)：delete-orphan级联删除 其中save-update属性为级联保存
 	>* OrderBy属性:select 查询的时候，orderBy会对集合中的元素进行排序。其中orderBy中使用的是表的字段名，而不是持久化类的属性名。OrderBy还可以加入sql函数
 
