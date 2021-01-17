@@ -1416,40 +1416,38 @@ Spring Construction：
 一旦事务被timeout了，无论是否被完成事务都要被强制回滚,从而缩短了事务占用内存的时间。
 
 
-####Spring 整合Hibernate:
+#### Spring 整合Hibernate:
 
 * **整合步骤:**
-	* a. 导入Hibernate的jar包，需要的话还要导入MySql和C3P0的jar包
-	* b. 添加Hibernate的 Hibnerate.cfg.xml(其实整合的时候都可以在Sping的文件下对Hibernate进行配置，即不需要Hibnerate.cfg.xml文件, **但是还是推荐把Hibernate的基本信息配置到Hibnerate.cfg.xml中)**。
+	- a. 导入Hibernate的jar包，需要的话还要导入MySql和C3P0的jar包
+	- b. 添加Hibernate的 Hibnerate.cfg.xml(其实整合的时候都可以在Sping的文件下对Hibernate进行配置，即不需要Hibnerate.cfg.xml文件, **但是还是推荐把Hibernate的基本信息配置到Hibnerate.cfg.xml中)**。
+		+ 1). 在Hibnerate.cfg.xml的配置文件中无需配置数据源了(MySQL,C3P0),因为数据源需要配置到IOC容器中，所以在Spring的配置文件中进行配置
+		+ 2). 设置与hibernate关联的类的配置文件(.hbm.xml)也无需创建了, 因为在Spring IOC容器里配置SessionFactory的实例时会进行相应的配置
+		+ 3). 所以在Hibnerate.cfg.xml 配置文件中只需要配置Hibernate的基本属性即可。
+		例如: 数据库方言的选择，SQL语句的显示，SQL语句在控制台的格式化显示,生成数据表的策略以及二级缓存的设置等等。
 
-	>
-	>* 1). 在Hibnerate.cfg.xml的配置文件中无需配置数据源了(MySQL,C3P0),因为数据源需要配置到IOC容器中，所以在Spring的配置文件中进行配置
-	>* 2). 设置与hibernate关联的类的配置文件(.hbm.xml)也无需创建了, 因为在Spring IOC容器里配置SessionFactory的实例时会进行相应的配置
-	>*  3). 所以在Hibnerate.cfg.xml 配置文件中只需要配置Hibernate的基本属性即可。
-	例如: 数据库方言的选择，SQL语句的显示，SQL语句在控制台的格式化显示,生成数据表的策略以及二级缓存的设置等等。
+		``` xml
+			<!-- 配置方言 -->
+			<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQL5InnoDBDialect</property>
+			<!-- ORM映射产生表的策略：update 实体和表的结构和数据 -->
+			<property name="hibernate.hbm2ddl.auto">update</property>
+			<!-- 产生的SQL语句显示 -->
+			<property name="hibernate.show_sql">true</property>
+			<!-- 产生的SQL语句格式化 -->
+			<property name="hibernate.format_sql">true</property>
+			<!-- 产生一个session在一个线程上 -->
+			<property name="hibernate.current_session_context_class">
+				thread
+			</property>
+		```
 
-	```
-		<!-- 配置方言 -->
-		<property name="hibernate.dialect">
-		org.hibernate.dialect.MySQL5InnoDBDialect</property>
-		<!-- ORM映射产生表的策略：update 实体和表的结构和数据 -->
-		<property name="hibernate.hbm2ddl.auto">update</property>
-		<!-- 产生的SQL语句显示 -->
-		<property name="hibernate.show_sql">true</property>
-		<!-- 产生的SQL语句格式化 -->
-		<property name="hibernate.format_sql">true</property>
-		<!-- 产生一个session在一个线程上 -->
-		<property name="hibernate.current_session_context_class">
-			thread
-		</property>
-	```
+	- c. 创建和配置Hibernate的持久化类和实体类 (可以使用XML文件的方式也可以使用JPA注解的方式进行配置)
+	- d. 加入Spring的Jar包，并创建Spring的配置文件
+	- e. 在Spring中配置C3P0数据源
+	- f. 在Spring中配置Hibernate的SessionFactory 实例，通过Spring提供的 `LocalSessionFactoryBean`进行配置
 
-	* c. 创建和配置Hibernate的持久化类和实体类 (可以使用XML文件的方式也可以使用JPA注解的方式进行配置)
-	* d. 加入Spring的Jar包，并创建Spring的配置文件
-	* e. 在Spring中配置C3P0数据源
-	* f. 在Spring中配置Hibernate的SessionFactory 实例，通过Spring提供的 `LocalSessionFactoryBean`进行配置
-
-	```
+	```xml
 	<!--通过Spring提供的 LocalSessionFactoryBean进行配置 -->
 	<bean id = "SessionFactory"
 	class =
@@ -1506,38 +1504,34 @@ Spring Construction：
 	```
 
 * **整合什么:**
-	* a. 让Spring的IOC容器生成Hibernate的SessionFactory实例
-	* b. 让Hibernate使用上Spring的声明式事务
+	+ a. 让Spring的IOC容器生成Hibernate的SessionFactory实例
+	+ b. 让Hibernate使用上Spring的声明式事务
 
 * **代码整合:**
-	>* 在持久化类中从Spring IOC容器中获取 session:
-	>
-		>* 1). 自动装配SessionFactory （无论是使用注解@Autowired 的方式，还是使用xml的		方式）
-		>* 2). 使用SessionFactory.getCurrentSession() 获取和当前线程绑定的Session<br>
+	+ * 在持久化类中从Spring IOC容器中获取 session:
+		- 1). 自动装配SessionFactory （无论是使用注解@Autowired 的方式，还是使用xml的		方式）
+		- 2). 使用SessionFactory.getCurrentSession() 获取和当前线程绑定的Session<br>
 		 注意: 这里不推荐使用HibernateTemplate接口 和 继承HibernateDaoSupport 的方式获		取Session。<br>原因是他们都是Spring的方法而不是Hibernate的原生方法 即会导致		DAO 和Spring 进行耦合使得可移植性变差，且都是Spring3的方法 较为过时。
-		>* 3). 使用HQL的方式来对数据库进行操作。
+		- 3). 使用HQL的方式来对数据库进行操作。
 
 * **Spring Hibernate事务额流程:**
-	>* a. 在方法开始之前
-	>
-		>* 1). 获取Session
-		>* 2). 把Session和当前的线程绑定, 这样就可以在DAO 中使用SessionFactory的getCurrentSession()方法来获取Session了
-		>* 3). 开启事务
-	>* b. 若方法正常结束, 即没有发生异常。则:
-	>
-		>* 1). 提交事务
-		>* 2). 和当前线程绑定的Session 解除绑定
-		>* 3). 关闭Session
-	>* c. 若方法未正常结束, 即 发生了异常 则:
-	>
-		>* 1). 回滚事务
-		>* 2). 和当前线程绑定的Session 解除绑定
-		>* 3). 关闭Session
+	+ a. 在方法开始之前
+		- 1). 获取Session
+		- 2). 把Session和当前的线程绑定, 这样就可以在DAO 中使用SessionFactory的getCurrentSession()方法来获取Session了
+		- 3). 开启事务
+	+ b. 若方法正常结束, 即没有发生异常。则:
+		- 1). 提交事务
+		- 2). 和当前线程绑定的Session 解除绑定
+		- 3). 关闭Session
+	+ c. 若方法未正常结束, 即 发生了异常 则:
+		- 1). 回滚事务
+		- 2). 和当前线程绑定的Session 解除绑定
+		- 3). 关闭Session
 
 
 * **配置的补充说明:** 不要Hibernate的配置文件，而在Spring的配置文件里对Hibernate进行配置 在SessionFactroy的标签里进行配置
-
-	```
+	
+	```xml
 	<property name="hibernateProperties">
 		<props>
 			<prop key="hibernate.dialect">
@@ -1552,22 +1546,21 @@ Spring Construction：
 
 #### SPRING与JPA的整合：
 
-**目的:**    
->*  1) 让Spring管理JPA 的`EntityManagerFactory   `
->*  2) 让JPA使用到Spring的声明式事务。
+* **目的:**    
+	+  1) 让Spring管理JPA 的`EntityManagerFactory   `
+	+  2) 让JPA使用到Spring的声明式事务。
 
-**整合方式:**
+* **整合方式:**
+	+ 1) 使用JPA的`LocalEntityManagerFactoryBean.` 但是仅适用于那些只使用JPA的数据，并且不支持Spring的全局事务和DataSource.
+	+ 2) 从JAVA EE中的JDNI获取指定的`EntityManagerFactory,` 但是这种方法在Spring的事务管理时通常需要使用JTA事务管理
+	+ (推荐) 3）使用`LocalContainerEntityManagerFactoryBean.`
 
-* 1) 使用JPA的`LocalEntityManagerFactoryBean.` 但是仅适用于那些只使用JPA的数据，并且不支持Spring的全局事务和DataSource.
-* 2) 从JAVA EE中的JDNI获取指定的`EntityManagerFactory,` 但是这种方法在Spring的事务管理时通常需要使用JTA事务管理
-* (推荐) 3）使用`LocalContainerEntityManagerFactoryBean.`
+* **`LocalContainerEntityManagerFactoryBean.`配置步骤:**
 
-**`LocalContainerEntityManagerFactoryBean.`配置步骤:**
-
-* a. 在hibernate.xml中配置C3P0 并创建 properties 文件 设置 连接数据库必备属性，并在XML中配置<br>
+	+  a. 在hibernate.xml中配置C3P0 并创建 properties 文件 设置 连接数据库必备属性，并在XML中配置<br>
 properties 文件内容:<br>
 
-	```
+	```java
 		jdbc.user = root
 		jdbc.password = password
 		jdbc.driverClass = com.mysql.jdbc.Driver(以MySQL为例)
@@ -1575,9 +1568,9 @@ properties 文件内容:<br>
 		jdbc.initPoolSize = 5
 		jdbc.maxPoolSize = 10
 	```
-XML文件的配置内容:
+	XML文件的配置内容:
 
-	```
+	```xml
 	<context: property-placeholder
 			location = "classpath: properties 文件路径">
 		<bean id = "datasSource"
@@ -1597,9 +1590,9 @@ XML文件的配置内容:
 		 </bean>
 	```
 
-* b. 在Spring创建的**apliacationContect.xml**中配置`EntityManagerFactoryBean`:
+	+ b. 在Spring创建的**apliacationContect.xml**中配置`EntityManagerFactoryBean`:
 
-	```
+	```xml
 	<bean id= "entityManagerFactory"
 	class = "org.springframework.orm.
 				jpa.LocalContainerEntityManagerFactoryBean">
@@ -1638,27 +1631,28 @@ XML文件的配置内容:
 		</property>
 	 </bean>
 	```
-* c. 配置JPA使用的事务管理器
+	
+	+ c. 配置JPA使用的事务管理器
 
-	```
+	```xml
 	<bean id="transactionManager"
 	class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory"
 					ref="entityManagerFactory" />
 	</bean>
 	```
-* d. 配置支持注解的事务配置
+	
+	+  d. 配置支持注解的事务配置
 
-	```
+	```xml
 	  <tx:annotation-driven
 	  			transaction-manager="transactionManager" />
 	```
 
-	>* 在DAO类中获取和当前事务相关的EntityManager对象:(相当于在Hibernate和Spring整合中通过getCurrentSession()来获取当且IOC容器中的Session)
-	>
-		>* 1) 在DAO类中添加Spring的 @Repository 注解
-		>* 2) 在类中添加JPA的 @PersistenceContext 注解 来标记成员变量并且与EntityManager对象进行关联。
-		>* 3）创建EntityManager对象,并且创建相应的 get set 方法 并在相应的方法中进行数据库的操作
+	- 在DAO类中获取和当前事务相关的EntityManager对象:(相当于在Hibernate和Spring整合中通过getCurrentSession()来获取当且IOC容器中的Session)
+		+ 1) 在DAO类中添加Spring的 @Repository 注解
+		+ 2) 在类中添加JPA的 @PersistenceContext 注解 来标记成员变量并且与EntityManager对象进行关联。
+		+ 3）创建EntityManager对象,并且创建相应的 get set 方法 并在相应的方法中进行数据库的操作
 
 
 #### Spring DATA:
