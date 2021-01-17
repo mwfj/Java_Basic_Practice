@@ -2080,7 +2080,7 @@ properties 文件内容:<br>
 
 
 
-* **(重点)@RequestMapping:**为控制器指定处理哪些URL请求。<br>
+* **(重点)@RequestMapping:** 为控制器指定处理哪些URL请求。<br>
 `@RequestMapping`即可以修饰方法，也可以用来修饰类
 
 	* a. 当`@RequestMapping `修饰某个方法的时候(提供一个细分映射信息)，那么该方法就会被用来处理@RequestMapping中的URL请求，并且方法处标记的URL相对于WEB引用的的根目录。<br>当`@RequestMapping` 修饰类的时候，提供初步的请求映射且类处标记的URL相对于**WEB引用的的根目录**,若此时类中的某个方法依然被·修饰，那么当前方法的URL值是相对于类处标记的URL的。<br>即当前方法的URL值为 WEB引用的根目录类映射的`@RequestMapping`方法映射的`@RequestMapping`。<br>
