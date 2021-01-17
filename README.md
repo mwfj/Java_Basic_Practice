@@ -2515,15 +2515,15 @@ Maven是跨平台的并且统一了项目的构筑规范。<br>
 		如果Eclipse 安装了Maven插件，选 择pom.xml文件，<br>`击右键——>选择 Run As——> Maven build` 。<br>如果是第一次运行，会弹出对话框。<br>在Goals框加加入以下命令: `tomcat:run` 这样Tomcat 插件就可以运行。<br>
 		下面介绍几个常用的Goal：
 
-			命令  |  描述
-		------------- | --------------------------
-		tomcat:deploy | 部署一个web war包
-		tomcat:reload  | 重新加载web war包
-		tomcat:start  | 启动tomcat
-		tomcat:stop   | 停止tomcat
-		tomcat:undeploy  | Content Cell
-		 tomcat:run  | 启动嵌入式tomcat ，并运行当前项目
-		Content Cell  | Content Cell
+		命令  |  描述
+	------------- | --------------------------
+	tomcat:deploy | 部署一个web war包
+	tomcat:reload  | 重新加载web war包
+	tomcat:start  | 启动tomcat
+	tomcat:stop   | 停止tomcat
+	tomcat:undeploy  | Content Cell
+	 tomcat:run  | 启动嵌入式tomcat ，并运行当前项目
+	Content Cell  | Content Cell
 
 		**注意:** 如果插件是**tomcat7-maven-plugin **那么启动tomcat ，对应的目标(Goal)	命令是: `tomcat7:run` ,同样，其它命令也是这样，需要更改为：`tomcat7：<插件执行点>`<br>具体的 pox.xml配置信息 请参照: <http://blog.csdn.net/oDeviloo/article/details/52050277>
 
