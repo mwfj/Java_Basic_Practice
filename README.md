@@ -1012,7 +1012,7 @@ Spring Construction：
 #### SPEL(Spring Expression Language):
  支持运行时查询和操作对象的表达式语言,可以为bean进行动态赋值<br>
 同时还可以实现通过bean 的id实现对bean的引用，调用方法以及引用对象的属性， 计算表达式的值， 正则表达式的匹配<br>
-使用**#{}** 作为界定符
+使用 `#{}`作为界定符
 
 * a. 为字面值进行赋值(不推荐): `value = "#{5}" value = "#{89.7}" value = "#{true}" value = "#{"hahaha"}"。
 * b. 引用bean的属性，方法: 通过T()可以调用类中的静态方法，此外SPEL还支持算术运算，正则表达式等
@@ -1023,7 +1023,7 @@ Spring Construction：
 
 	通过**#{其他bean的id}** 来引用其他的bean;    **#{其他bean的id.方法}**来引用其他的bean的方法。
 
-	```xml
+	```java
 	eg: 
 		#{car}, #{car.brand}, #{car.price >30000 ? 金领 : 白领}
 	```
@@ -1041,7 +1041,7 @@ Spring Construction：
 	 现在类中定义一个static静态方法 例如:`public static void getCar(String name)`
 	 通过静态工厂方法配置bean，注意这里是配置bean实例而不是静态方法实例。
 
-	```
+	```xml
 	<bean id = "" class = "指向静态方法的全类名(包名.类名)"
 		factory-method = "指向静态工厂的静态方法名
 						例如:刚才定义的getCar">
@@ -1061,12 +1061,12 @@ Spring Construction：
 	* 实例工厂的方法，先需要创建工厂本身并且在无参的构造函数里初始化数据，再调用工厂的实例方法来返回Bean的实例<br> eg. `public void getCar(String name)`
 	* 在XML文件里配置工厂的实例
 
-		```
+		```xml
 		<bean id ="eg: carFactory" class="" ></bean>
 		```
 	* 通过实例工厂方法类配置实例
 
-		```
+		```xml
 		    <bean id =""
 		    	factory-bean="指向实例工厂方法的Bean eg.carFactory"  
 		    		actory-method = "指向工厂的方法 eg. getCar">
@@ -1088,7 +1088,7 @@ Spring Construction：
 	* a. 原有的业务方法急剧膨胀，导致每次在处理核心方法的同时还需要兼顾其他的关注点(例如: 日志打印，以及事务的处理)
 	*  b. 当另外几个关注点发生变化的时候，必须修改所有模块
 
-* **AOP: **对面向对象编程的一种补充，AOP主要的编程对象是切面(Aspect),是切面模块的横切关注点。<br>在AOP编程的时候，仍然需要定义公共功能，这些公共功能的修改不会影响到那些主要的功能.
+* **AOP:** 对面向对象编程的一种补充，AOP主要的编程对象是切面(Aspect),是切面模块的横切关注点。<br>在AOP编程的时候，仍然需要定义公共功能，这些公共功能的修改不会影响到那些主要的功能.
 	* AOP的特点:
 		1. 每个事物逻辑位于一个位置，并且代码不分散，便于维护和升级
 		2. 由于其他与主要业务无关的功能被抽出(切棉花)，主要业务模块更加简介，只包括核心的业务代码。
@@ -1101,21 +1101,18 @@ Spring Construction：
 	* 切点(PointCut): AOP通过切点来定位到具体的连接点。 如果连接点是数据库中的记录的话，切点就是查询这些记录的查询条件。<br>
 	**一个切点(PointCut)可以对应多个连接点(JoinPoint)**
 
-* **AspectJ：**
-	>* 配置步骤:
-	>  
-		> * a. 需要额外导入**aopalliance.jar   aspectJ.wave.jar    Spring-aop-XXXX.RELEASE.jar Spring-aspect-XXXX.RELEASE.jar**    这四个jar包
-		> * b. 在Spring配置文件中，需要添加 aop, context, beans三个命名空间。 并添加 `<context: component-scan>`标签,在需要存放在IOC的类上添加相应的注解<br>具体步骤请参照上面的Spring IOC配置方法
-		> * c. 在XML中添加`<aop:aspectJ-autoproxy></aop:aspectJ-autoproxy>`使得AspecJ自动为匹配的类生成代理对象
-		> * d. 创建一个AOP代理类 并将这个类声明为一个切面:
-		>
-			>* 1). 加入`@Component` 将这个类放入IOC容器中  
-			>* 2). 添加@Aspect注解
-			>* 3). 在代理类的方法上
-			>
+* **AspectJ:**
+	+ 配置步骤:  
+		- a. 需要额外导入**aopalliance.jar   aspectJ.wave.jar    Spring-aop-XXXX.RELEASE.jar Spring-aspect-XXXX.RELEASE.jar**    这四个jar包
+		- b. 在Spring配置文件中，需要添加 aop, context, beans三个命名空间。 并添加 `<context: component-scan>`标签,在需要存放在IOC的类上添加相应的注解<br>具体步骤请参照上面的Spring IOC配置方法
+		- c. 在XML中添加`<aop:aspectJ-autoproxy></aop:aspectJ-autoproxy>`使得AspecJ自动为匹配的类生成代理对象
+		- d. 创建一个AOP代理类 并将这个类声明为一个切面:
+			+ 1). 加入`@Component` 将这个类放入IOC容器中  
+			+ 2). 添加@Aspect注解
+			+ 3). 在代理类的方法上
 	* **i. **若加入 前置通知
 
-		```
+		```java
 		@Before(
 			"execute(public 返回值 包名.类名.方法名(参数类型, 参数类型))"
 		)
@@ -1124,7 +1121,7 @@ Spring Construction：
 在这个方法上可以传入 JoinPoint，并使用JoinPoint来获取相应的方法数据和其他细节 例如 `JoinPoint.getSignature().getName();`获取方法名<br>`JoinPoint.getArgs()`获取参数列表
 	* **ii.** 若加入
 
-		```
+		```java
 		@After(
 			"execute(public 返回值 包名.类名.方法名(参数类型, 参数类型))"
 			)
@@ -1132,17 +1129,17 @@ Spring Construction：
 	在目标方法执行后，无论是否发生异常都会执行的通知。但是在后置通知中还不能访问目标方法的执行结果
 	* **iii.** 若加入
 
-		```
+		```java
 		@AfterReturning(value="execute()" returning="返回的值")
 		```
 	返回通知，在方法结束后执行的通知。返回通知是可以访问到方法的结果<br> 即 返回值。当方法抛出异常的时候，返回通知不会执行。
 	* **iiii.** 若加入`@AfterThrowing(throwing = "访问的异常")` 异常通知，可以访问到方法出现的异常，在出现特定异常的时候才会被执行，并且打印该异常类似于Catch
 	* **iiiii.** 若加入`@Around `环绕通知，这个通知是通知里面功能最强的，但是不常用。与其他通知不同的是带有环绕通知的方法需要传入**ProceedingJoingPoint**,
-	    >* 环绕通知类似与动态代理的全过程，即方法运行前，运行后，返回，异常。 并且ProceedingJoingPoint可以决定是否执行目标方法。环绕通知必须有返回值，该返回值也是目标方法的返回值。<br>在方法中Around方法中使用 ProceedingJoingPoint.proceed()来执行目标方法。
+		+ 环绕通知类似与动态代理的全过程，即方法运行前，运行后，返回，异常。 并且ProceedingJoingPoint可以决定是否执行目标方法。环绕通知必须有返回值，该返回值也是目标方法的返回值。<br>在方法中Around方法中使用 ProceedingJoingPoint.proceed()来执行目标方法。
 	* 切面的优先级: 在代理类中加入`@Order()`注解，来表示该代理对象的优先级，注解中的数字越小，该代理类的优先级越大。
 	* 切面表达式execute的重用: 定义一个方法，用于声明切入点表达式，并在该方法前加入`@PointCut`注解来声明切入点表达式。后面的其他通知直接使用方法名来引用当前的切入点表达式即可<br>一般地，该方法中不再需要添入其他代码。
 
-	```
+	```java
 	eg. @PointCut(
 			"execute(public 返回值 包名.类名.方法名(参数类型, 参数类型))"
 			)
@@ -1155,7 +1152,7 @@ Spring Construction：
 * 基于XML文件的方式配置AOP:
 	* 在xml文件中加入
 
-	```
+	```xml
 	<aop: config>
 	    <!--配置切点表达式 -->
 	    <aop:pointcut
@@ -1194,7 +1191,7 @@ Spring Construction：
 
 * a. 在XML文件中配置JDBCTemplate:
 
-	```
+	```xml
 	<bean id = "jdbcTemplate"
 			class = "org.springframework.jdbc.core.JdbcTemplate">
 	    <property name = "dataSource" ref = "dataSource">
@@ -1203,18 +1200,18 @@ Spring Construction：
 	```
 * b. 通过`JDBCTemplate.update(sql语句,占位符参数);` 来执行**INSERT, UPDATE,DELETE**操作。<br>通过
 
-	```
+	```java
 	JDBCTemplate.batchUpdate(sql语句,batchArgs(List<Object[]>));
 	```
 来多条记录，最后一个参数是`List<Object[]>`的类型<br>  利用`JDBCTemplate`从数据库中获取一条记录，并且实际上对应一个对象。
 
-	```
+	```java
 	RowMapper<Object> rowMapper =
 					new BeanPropertyRowMapper<>(Object.class);
 	```
 其中的**RowMapper** 是指定如何去映射结果集的行，常用的实现类为**BeanPropertyRowMapper**
 
-	```
+	```java
 	Object object =
 			JDBCTemplate.queryForObject(sql语句, rowMapper, args)
 	 //在sql语句中需要对类名和表中列的属性名进行映射
@@ -1222,7 +1219,7 @@ Spring Construction：
 ```
 ***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
 
-	```
+	```java
 	RowMapper<Object> rowMapper =
 				new BeanPropertyRowMapper<>(Object.class);
 	List<Object> list = J
@@ -1245,7 +1242,7 @@ Spring Construction：
 在SQL语句中可以为参数起名字, 即可以使用": 变量名"以代替"?"占位符。<br>
 例:
 
-	```
+	```xml
 		String sql = "INSERT INTO table(id, name, age)
 						VALUES (:id,:name,:age)"
 		Map<String, Object> paramMap = new HashMap<>();
@@ -1261,7 +1258,8 @@ Spring Construction：
 
 `NamedParameterJdbcTemplate.update(sql, SqlParameterSource):` SQL语句的参数名必须和类的属性名一致，使用SqlParameterSource的`BeanPropertySqlParameterSource`的实现类作为参数<br>
 例如:
-
+	
+	``` java
 		String sql = "INSERT INTO table(id, name, age)
 							 VALUES (:id,:name,:age)";
 		Object object = new Object();
@@ -1271,7 +1269,7 @@ Spring Construction：
 		SqlParameterSource SqlParameterSource =
 					new BeanPropertySqlParameterSource(object);
 		NamedParameterJdbcTemplate.update(sql, SqlParameterSource);
-
+	```
 
 #### Spring中的事务管理:
 
