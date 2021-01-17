@@ -2214,7 +2214,8 @@ properties 文件内容:<br>
 	@RequestMapping("/helloWorld")
 	public void testServlerAPI(HttpServletRequest request,
 							 HttpServletResponse response,
-							 					Writer out){
+							 Writer out
+						){
 		Systom.out.println(request+", "+response);
 		out.write("Hello World!");
 	}
@@ -2370,18 +2371,18 @@ properties 文件内容:<br>
 Maven是跨平台的并且统一了项目的构筑规范。<br>
 除此之外，Maven是一个依赖工具，她提供了中心仓库能够自动下载中项目的构建(第三方类库和插件)<br>同时maven还是一个文档产生器和信息管理工具，能够快速的找到项目所需要的类库和插件信息。还可以统一规范站点的文档信息。
 
-**测试命令:**  <br>
++ **测试命令:**  <br>
 
-* mvn -version 查看Maven 版本信息；  
-* mvn help:system 使用help插件查看系统信息
+	- mvn -version 查看Maven 版本信息；  
+	- mvn help:system 使用help插件查看系统信息
 <br><br><br>
 
-**pox.xml:** <br>Project Object Model. Maven的工程结构和内容被定义在pox.xml中 又被称为骨架 <http://maven.apache.org/pom.html>(关于Pom.xml的官方描述)
++ **pox.xml:** <br>Project Object Model. Maven的工程结构和内容被定义在pox.xml中 又被称为骨架 <http://maven.apache.org/pom.html>(关于Pom.xml的官方描述)
 
-*  约定大于配置: 因为maven使用约定而不是配置, 所以开发者不需要自己创建构建过程。<br>当创建maven时，maven会创建默认的工程结构,开发者只需要合理的放置配置文件即可，而在pox.xml中无需做任何配置。<br> **注意：** pox.xml 必须放在根目录下。<br> Java代码必须放在  **src/main/java** <br>测试代码必须放在 **src/test/java** 且目录必须和java中相应项目的目录相同
-*   其中` modelVersion --pom`的版本号，<br>一般`groupId artifactId version` 为项目的坐标信息，`groupId` 为项目组信息， `artifactId` 当前项目在项目组中的ID标号，`version`项目当前的版本号信息。
+	- 约定大于配置: 因为maven使用约定而不是配置, 所以开发者不需要自己创建构建过程。<br>当创建maven时，maven会创建默认的工程结构,开发者只需要合理的放置配置文件即可，而在pox.xml中无需做任何配置。<br> **注意：** pox.xml 必须放在根目录下。<br> Java代码必须放在  **src/main/java** <br>测试代码必须放在 **src/test/java** 且目录必须和java中相应项目的目录相同
+	- 其中` modelVersion --pom`的版本号，<br>一般`groupId artifactId version` 为项目的坐标信息，`groupId` 为项目组信息， `artifactId` 当前项目在项目组中的ID标号，`version`项目当前的版本号信息。
 
-	```
+	```xml
 		 name 项目名称(非必须项，但建议加上)
 		<!-- 版本 -->
 		<modelVersion>4.0.0</modelVersion>
@@ -2402,22 +2403,22 @@ Maven是跨平台的并且统一了项目的构筑规范。<br>
 		</properties>
 	```
 
-如果加入一个项目的包名为com.mwfj.demo.test，那么"com.mwfj.demo" 与groupId 对应， "test"与artifactId对应
+	如果加入一个项目的包名为com.mwfj.demo.test，那么"com.mwfj.demo" 与groupId 对应， "test"与artifactId对应
 
-
+	```xml
 	            <dependency>
 	                <groupId>org.springframework</groupId>
 	                <groupId>org.springframework</groupId>
 	                <artifactId>spring-context</artifactId>
 	                <version>${spring.version}</version>
 	            </dependency>
+	```
 
-
-加入依赖后，当使用相应的Jar包时，Maven会帮助你自动下载对应的Jar包<br>配置依赖 具体依赖请在<http://mvnrepository.com/>中获取
+	加入依赖后，当使用相应的Jar包时，Maven会帮助你自动下载对应的Jar包<br>配置依赖 具体依赖请在<http://mvnrepository.com/>中获取
 <br><br><br>
 
 
-**常用命令说明:**
+* **常用命令说明:**
 
 	属性名/命令 |实现的功能
 	------------- | -------------
@@ -2435,53 +2436,53 @@ Maven是跨平台的并且统一了项目的构筑规范。<br>
 此外 在pom.xml中添加maven-shade-plugin插件，package之后对多出一个能够直接运行的package
 <br><br><br>
 
-**使用eclipse来管理Maven项目**:<br>
-**主要强调的是**
+* **使用eclipse来管理Maven项目**:<br>
+	**主要强调的是**
 
-* 在pom.xml 添加Tomcat插件(Apache Tomcat Maven Plugin)以帮助我们把自己建立Maven项目发布到Tomcat中
-	* a. 在pox.xml中加入
+	+ 在pom.xml 添加Tomcat插件(Apache Tomcat Maven Plugin)以帮助我们把自己建立Maven项目发布到Tomcat中
+		- a. 在pox.xml中加入
 
-		```
+		```xml
 		<build>
 			<!--finalName中标识当前的项目名 -->
 			 <finalName>
 			 maven_web_spring4.0_hibernate4.0_jpa</finalName>
 		</build>
 		```
-	* b. 在**pom.xml的<build>**中放入Tomcat插件的配置信息
-
-	```
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat6-maven-plugin</artifactId
-					<version>2.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.2</version>
-					<!--配置Tomcat的信息 -->
-					<configuration>
-						<!--port 是tomcat 的端口号 -->
-						<port>8089</port>
-						<!--path:访问应用的路劲 -->
-						<path>/mgr</path>
-						<!--uriEncoding  URL按UTF-8进行编码，
-						这样就解决了中文参数乱码。 -->
-						<uriEncoding>UTF-8</uriEncoding>
-						 <finalName>mgr</finalName>
-						 <!--Server 指定tomcat名称。 -->
-						 <server>tomcat7</server>
-					 </configuration>
-				</plugin>
-			<plugins>
-		</pluginManagement>
-	```
-	添加cargo-maven2-plugin：
-
-
+		- b. 在**pom.xml的<build>**中放入Tomcat插件的配置信息
+	
+		```xml
+			<pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat6-maven-plugin</artifactId
+						<version>2.2</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<version>2.2</version>
+						<!--配置Tomcat的信息 -->
+						<configuration>
+							<!--port 是tomcat 的端口号 -->
+							<port>8089</port>
+							<!--path:访问应用的路劲 -->
+							<path>/mgr</path>
+							<!--uriEncoding  URL按UTF-8进行编码，
+							这样就解决了中文参数乱码。 -->
+							<uriEncoding>UTF-8</uriEncoding>
+							 <finalName>mgr</finalName>
+							 <!--Server 指定tomcat名称。 -->
+							 <server>tomcat7</server>
+						 </configuration>
+					</plugin>
+				<plugins>
+			</pluginManagement>
+		```
+		添加cargo-maven2-plugin：
+	
+		```xml
 			<pluginManagement>
 				<plugins>
 					<plugin>
@@ -2508,31 +2509,31 @@ Maven是跨平台的并且统一了项目的构筑规范。<br>
 					</plugin>
 				<plugins>
 			</pluginManagement>
+			```
+	
+	- c. 插件运行:
+		如果Eclipse 安装了Maven插件，选 择pom.xml文件，<br>`击右键——>选择 Run As——> Maven build` 。<br>如果是第一次运行，会弹出对话框。<br>在Goals框加加入以下命令: `tomcat:run` 这样Tomcat 插件就可以运行。<br>
+		下面介绍几个常用的Goal：
 
-	* c. 插件运行:
-	如果Eclipse 安装了Maven插件，选 择pom.xml文件，<br>`击右键——>选择 Run As——> Maven build` 。<br>如果是第一次运行，会弹出对话框。<br>在Goals框加加入以下命令: `tomcat:run` 这样Tomcat 插件就可以运行。<br>
-	下面介绍几个常用的Goal：
+			命令  |  描述
+		------------- | --------------------------
+		tomcat:deploy | 部署一个web war包
+		tomcat:reload  | 重新加载web war包
+		tomcat:start  | 启动tomcat
+		tomcat:stop   | 停止tomcat
+		tomcat:undeploy  | Content Cell
+		 tomcat:run  | 启动嵌入式tomcat ，并运行当前项目
+		Content Cell  | Content Cell
 
-		命令  |  描述
-	------------- | --------------------------
-	tomcat:deploy | 部署一个web war包
-	tomcat:reload  | 重新加载web war包
-	tomcat:start  | 启动tomcat
-	tomcat:stop   | 停止tomcat
-	tomcat:undeploy  | Content Cell
-	 tomcat:run  | 启动嵌入式tomcat ，并运行当前项目
-	Content Cell  | Content Cell
+		**注意:** 如果插件是**tomcat7-maven-plugin **那么启动tomcat ，对应的目标(Goal)	命令是: `tomcat7:run` ,同样，其它命令也是这样，需要更改为：`tomcat7：<插件执行点>`<br>具体的 pox.xml配置信息 请参照: <http://blog.csdn.net/oDeviloo/article/details/52050277>
 
-	**注意:** 如果插件是**tomcat7-maven-plugin **那么启动tomcat ，对应的目标(Goal)	命令是: `tomcat7:run` ,同样，其它命令也是这样，需要更改为：`tomcat7：<插件执行点>`<br>具体的 pox.xml配置信息 请参照: <http://blog.csdn.net/oDeviloo/article/details/52050277>
-
-	* d. **总结**:通过maven来创建一个web项目需要的步骤:
+	- d. **总结**:通过maven来创建一个web项目需要的步骤:
 		* 1). 创建maven web项目
 
 		* 2).
-		>  
-			>* 在pom.xml中 添加依赖<br>添加本地仓库的依赖<br>
-			>* 添加Servlet,Jsp,Jstl,Hibernate,Spring,Mybatis的依赖(根据自己的需要)<br>
-			>* 其中Servlet,Jsp 中需要额外增加`<Scope>provided</Scope>` 因为这个依赖有可能和Tomcat 自身的Servlet,Jsp。所以需要避免该冲突
+			* 在pom.xml中 添加依赖<br>添加本地仓库的依赖<br>
+			* 添加Servlet,Jsp,Jstl,Hibernate,Spring,Mybatis的依赖(根据自己的需要)<br>
+			* 其中Servlet,Jsp 中需要额外增加`<Scope>provided</Scope>` 因为这个依赖有可能和Tomcat 自身的Servlet,Jsp。所以需要避免该冲突
 		* 3). 在Java,JSP,HTML,CSS,JavaScript根据自己需要编写相应的功能
 		* 4). 在web.xml 中设置与servlet,spring相关的配置(根据自己的需要)
 		* 5). 需要在**pom.xml**中添加自动发布web应用的插件(`tomcat7-maven-plugin， cargo-maven2-plugin)`并设置好相关的配置(例如 war坐标，Tomcat目录)
