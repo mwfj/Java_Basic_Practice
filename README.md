@@ -1903,16 +1903,13 @@ properties 文件内容:<br>
 	eg. <br>
 
 	```java
-		@Modifying
-		 @Query("UPDATE My_Table p
-		 		SET p.table_name = :tname AND p.age = :tage")
-		List<Object> testQueryAnnotationParameter(
-						@Param("tname") String tableName,
-						@Param("tage") Integer age);
+	@Modifying
+	 @Query("UPDATE My_Table p
+	 		SET p.table_name = :tname AND p.age = :tage")
+	List<Object> testQueryAnnotationParameter(
+					@Param("tname") String tableName,
+					@Param("tage") Integer age);
 	```
-
-
-
 
 
 #####Spring如何在WEB应用中使用：
@@ -1925,10 +1922,10 @@ properties 文件内容:<br>
 即一般是由ServletContextListener 在监听WEB应用是否被服务器做加载。<br>所以一般IOC容器在WEB应用中都被创建于ServletContextListener的contextInitialized(ServletContextEvent)的方法中。
 
 * 在WEB应用中其他组件中访问IOC容器的基本思路:
-	* 1) 将`ServletContextListener`的`contextInitialized(ServletContextEvent)`的方法中创建IOC容器后，可以将创建好的IOC容器放置在`ServletContext(即 Application域)`的一个属性中。<br>在web.xml配置文件中 使用`<listener>`标签来启动IOC容器的`ServletContextListener`<br>
+	+ 1) 将`ServletContextListener`的`contextInitialized(ServletContextEvent)`的方法中创建IOC容器后，可以将创建好的IOC容器放置在`ServletContext(即 Application域)`的一个属性中。<br>在web.xml配置文件中 使用`<listener>`标签来启动IOC容器的`ServletContextListener`<br>
 	eg.
 
-	```
+	```xml
 	 <listener>
 		 <listener-class>
 		 	对应的ServletContextListener的类路径
@@ -1936,48 +1933,45 @@ properties 文件内容:<br>
 	</listener>
 	```
 
-	>* 2) Spring配置文件的名字和位置也是可以进行配置的, 并且一般配置文件都会被放在当前WEB应用的初始化参数中
-	>
-	>* i. 在web.xml文件中配置Spring 配置文件的位置和名称
+	+ 2) Spring配置文件的名字和位置也是可以进行配置的, 并且一般配置文件都会被放在当前WEB应用的初始化参数中
+		- i. 在web.xml文件中配置Spring 配置文件的位置和名称
 
-	```
-		<context-param>
-			<param-name>自定义一个名字 例如SpringConfiguration
-			</param-name>
-			<param-value>Spring 配置文件的路径
-			例如如果在根目录下: applicationContext.xml
-			</param-value>
-		<context-param>
-	```
+		```xml
+			<context-param>
+				<param-name>自定义一个名字 例如SpringConfiguration
+				</param-name>
+				<param-value>Spring 配置文件的路径
+				例如如果在根目录下: applicationContext.xml
+				</param-value>
+			<context-param>
+		```
 
-	>
-	>* ii. 在ServletContextListener的contextInitialized(ServletContextEvent)的方法中创建IOC容器
+		- ii. 在ServletContextListener的contextInitialized(ServletContextEvent)的方法中创建IOC容器
 
-	```
-	//获取Spring 配置文件的位置。
-	ServletContext servletContext =
-		 ServletContextEvent.getServletContext("
-		 			<context-param>中的<param-name>);
-	String config = servletContext.getInitParameter();
-	//创建IOC容器
-	ApplicationContext ctx =
-				new ClassPathXmlApplicationContext(config);
-	 //把IOC容器放到ServletContext的一个属性中
-	servletContext.setAttribute("ApplicationContext", ctx);
-	```
+		```xml
+		//获取Spring 配置文件的位置。
+		ServletContext servletContext =
+			 ServletContextEvent.getServletContext("
+			 			<context-param>中的<param-name>);
+		String config = servletContext.getInitParameter();
+		//创建IOC容器
+		ApplicationContext ctx =
+					new ClassPathXmlApplicationContext(config);
+		 //把IOC容器放到ServletContext的一个属性中
+		servletContext.setAttribute("ApplicationContext", ctx);
+		```
+		
+		- iii. 创建Servlet 以得到IOC容器
 
-	>
-	>* iii. 创建Servlet 以得到IOC容器
-
-	```
-		//从Application域中获得IOC容器的引用
-		ServletContext servletContext = getServletContext;
-		servletContext ctx =
-			 (ApplicationContext)servletContext
-				.getAttribute("ApplicationContext");
-		//从IOC容器中获得所需要的bean
-		Object object = ctx.getBean("bean id");
-	```
+		```xml
+			//从Application域中获得IOC容器的引用
+			ServletContext servletContext = getServletContext;
+			servletContext ctx =
+				 (ApplicationContext)servletContext
+					.getAttribute("ApplicationContext");
+			//从IOC容器中获得所需要的bean
+			Object object = ctx.getBean("bean id");
+		```
 
 
 
