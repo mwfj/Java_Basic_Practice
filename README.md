@@ -1263,28 +1263,27 @@ Spring Construction：
 	`NamedParameterJdbcTemplate.update(sql, SqlParameterSource):` SQL语句的参数名必须和类的属性名一致，使用SqlParameterSource的`BeanPropertySqlParameterSource`的实现类作为参数<br>
 	例如:
 		
-		``` java
-			String sql = "INSERT INTO table(id, name, age)
-								 VALUES (:id,:name,:age)";
-			Object object = new Object();
-			object.setId(1);
-			object.setName("二狗");
-			object.setAge(25);
-			SqlParameterSource SqlParameterSource =
-						new BeanPropertySqlParameterSource(object);
-			NamedParameterJdbcTemplate.update(sql, SqlParameterSource);
-		```
+	``` java
+		String sql = "INSERT INTO table(id, name, age)
+							 VALUES (:id,:name,:age)";
+		Object object = new Object();
+		object.setId(1);
+		object.setName("二狗");
+		object.setAge(25);
+		SqlParameterSource SqlParameterSource =
+					new BeanPropertySqlParameterSource(object);
+		NamedParameterJdbcTemplate.update(sql, SqlParameterSource);
+	```
 
 #### Spring中的事务管理:
 
 * a. **基于声明式的事务管理:**
  对于JDBC的事务管理。使用`DataSourceTransactionManager`: 对于Spring JDBC的事务管理时基于 JDBCTemplate之上的。<br>
 由于MySQL不支持 `"check()"`的检查约束，所以需要在JDBC中手工的添加这一约束。
-	* 基于注解的Spring事务管理配置:
+	+ 基于注解的Spring事务管理配置:
+		-  基于注解的Spring XML中配置事务管理器(如下)，之后在Service的类的方法上添加`@Transcation `注解，启用事务。当前的方法也就变成了一个事务方法。
 
-		>* 基于注解的Spring XML中配置事务管理器(如下)，之后在Service的类的方法上添加`@Transcation `注解，启用事务。当前的方法也就变成了一个事务方法。
-
-		```
+		```xml
 		<bean id= ""
 			class = "org.springframework.jdbc.
 					datasource.DataSourceTransactionManager
@@ -1297,18 +1296,18 @@ Spring Construction：
 		 		transaction-manager  = "transactionManager" />
 		```
 
-		* 基于XML的Spring事务管理配置:
-			* 1). 配置相应的Bean<br>
+		- 基于XML的Spring事务管理配置:
+			+ 1). 配置相应的Bean<br>
 
-				```
+				```xml
 				<bean id = "" class= "包名.类名">
 					  <property name = "" ref ="">
 					  </property>
 				</bean>
 				```
-			* 2). 配置XML文件的事务管理:
+			+ 2). 配置XML文件的事务管理:
 
-				```
+				```xml
 				<!--这里的class针对JDBC的class,Hibnerate会有其他的类-->
 				 <bean id= ""
 				 class = "org.springframework.
@@ -1317,9 +1316,9 @@ Spring Construction：
 				                    ref = "dataSource"></property>
 				  </bean>
 				  ```
-			* 3). 配置XML文件配置事务的属性:
+			+ 3). 配置XML文件配置事务的属性:
 
-				```
+				```xml
 				 <tx:advice id= "txAdvice"
 				 	transaction-manager  = "transactionManager">
 					 <tx:attributes>
@@ -1340,23 +1339,23 @@ Spring Construction：
 				</tx:advice>
 				```
 
-			* 4). 配置事务切入点以及把事务切入点和属性关联起来:
+			+ 4). 配置事务切入点以及把事务切入点和属性关联起来:
 
-		```
-			<aop:config>
-				<aop:pointcut
-					expression =
-						"execute(
-						public 返回值 包名.类名.方法名(参数类型, 参数类型)
-						)"
-							id = "txPointCut(自己随便定义的)">
-				<aop:advicer
-					advice-ref = "<tx:advice>的id值。
-					这里对应的是txAdvice"
-					pointcut-ref = "<tx:pointcut>的id值。
-					这里对应的是txPointCut" />
-			</aop:config>
-		```
+			```xml
+				<aop:config>
+					<aop:pointcut
+						expression =
+							"execute(
+							public 返回值 包名.类名.方法名(参数类型, 参数类型)
+							)"
+								id = "txPointCut(自己随便定义的)">
+					<aop:advicer
+						advice-ref = "<tx:advice>的id值。
+						这里对应的是txAdvice"
+						pointcut-ref = "<tx:pointcut>的id值。
+						这里对应的是txPointCut" />
+				</aop:config>
+			```
 
 * b.**Spring的事务传播行为**: 当前的事务方法被另一个事务方法调用的时候，被调用的事务方法如何传递给事务。<br>
 通过在`@Transaction`注解中添加 `propagation`属性或<br>在XML文件中加入`<tx:advice>` 的`<tx:method>`来设置事务的传播行为;
