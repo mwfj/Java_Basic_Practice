@@ -821,13 +821,12 @@ Spring Construction：
 	当然ClassPathXmlApplicationContext 的参数也可以是.class，但是同一个Class中只   能有一种Bean，所以没有上面的参数灵活<br>
 	创建容器的时候，Spring会调用Entity构造器对该类进行初始化，并对 **`<bean><property>`**中的set方法进行初始化。<br>
 	* Spring中提供了两种的IOC容器的实现:
-		>* BeanFactory: IOC容器的基本实现，是Spring框架的基础设置，面向Spring本身
-		>* ApplicationContext: 是BeanFactory的子接口，面向Spring的开发者使用，几乎所有场合都是在使用ApplicationContext而不是BeanFactory。<br>**其中ApplicationContext在初始化上下文时就创建了XML的Bean对象实例。**
-		>* 实现类:
-		>
-		    >* ClassPathXmlApplicationContext   从类路径下加载XML配置文件
-		    >*  FileSystemXmlApplicationContext 从文件系统中加载XML配置文件
-		>* ConfigurationContext: ApplicationContext的扩展，新增refresh(), close()方法。使得ApplicationContext具有启动、刷新、关闭上下文的能力
+		+ BeanFactory: IOC容器的基本实现，是Spring框架的基础设置，面向Spring本身
+		+ ApplicationContext: 是BeanFactory的子接口，面向Spring的开发者使用，几乎所有场合都是在使用ApplicationContext而不是BeanFactory。<br>**其中ApplicationContext在初始化上下文时就创建了XML的Bean对象实例。**
+		+ 实现类:
+			- ClassPathXmlApplicationContext   从类路径下加载XML配置文件
+			- FileSystemXmlApplicationContext 从文件系统中加载XML配置文件
+			- ConfigurationContext: ApplicationContext的扩展，新增refresh(), close()方法。使得ApplicationContext具有启动、刷新、关闭上下文的能力
 
 	* 2) 从IOC容器中获取Bean实例
 
@@ -845,7 +844,7 @@ Spring Construction：
 		* **`<context: include-filter>`**子节点表示要包含的目标类
 		* **`<context: exclude-filter>`**子节点表示排除在外的目标类
 
-		```
+	```xml
 	eg.<!--制定Spring IOC容器的扫描的包-->
 		<context: component-scan
 		    	 base-package = ""  resource-pattern = "">
@@ -860,7 +859,8 @@ Spring Construction：
 					expression = "需要包含的类路径">
 		        	<context: exclude-filter> 同理
 		</context: component-scan>
-		```
+	```
+	
 对于扫描到的组件，Spring有默认的命名策略相当于<bean>的 id值，使用非限定性类名且首字母小写(例如类名交给User,那么spring就会扫描是否有"user"的类)<br>
 **此外，也可以通过标识注解中的value属性来设定名称**
 
@@ -871,10 +871,9 @@ Spring Construction：
 	* 1). `@AutoWire` 注解 自动装配与当前bean具有关联关系的已经在IOC容器中创建的其他Bean 和 set方法。<br>默认情况下如果在需要自动装配的Bean或方法前加入`@AutoWire`, IOC容器会自动将该Bean 和 set方法进行装配。<br>如果需加**@AutoWire Bean**或方法在IOC容器中并没有被声明，那么在`@AutoWire()`将require属性置为false即可。
 	*  2). 当IOC容器中有很多个相匹配的Bean的时候(例如: `@AutoWire`接口，而该接口有多个实现类), IOC容器会默认装配Bean的名字与`@AutoWire` 的名字一样的Bean。
 
-		> * 解决方法：
-		>
-			>* i. 在那个需要被自动装配的Bean的扫描注解上(例如: `@Component`) 设定与@Autowired自动装配的属性名一致即可<br>例如:` @Autowired` 接口名字叫 PersonInterface （Student,Employee)都实现改接口。<br>若想要@Autowired PersonInterface 自动装配Student，那么就需要把Student 中@Component注解的Value 设定为 "PersonInterface"
-			>* ii.在@Autowired 的下面添加一个 `@Qualifer(value ="")`注解,并将该注解的value值设为你想要自动装配的类的类名(首字母小写)即可,<br>此外还可以加到set方法上或者是入参列表中。<br>
+		+  **解决方法：**
+			- i. 在那个需要被自动装配的Bean的扫描注解上(例如: `@Component`) 设定与@Autowired自动装配的属性名一致即可<br>例如:` @Autowired` 接口名字叫 PersonInterface （Student,Employee)都实现改接口。<br>若想要@Autowired PersonInterface 自动装配Student，那么就需要把Student 中@Component注解的Value 设定为 "PersonInterface"
+			- ii.在@Autowired 的下面添加一个 `@Qualifer(value ="")`注解,并将该注解的value值设为你想要自动装配的类的类名(首字母小写)即可,<br>此外还可以加到set方法上或者是入参列表中。<br>
 			**例如** 想要装配 实现PersonInterface 的Student 那么应该写成**@Qualifer("student")** 即可 **set方法: setPersonInterface( @Qualifer("student") PersonInterface personInterface)**
 	* 3). `@Autowired` 也开始装配到数组类型的属性上，此时Spring会把数组里的所有Bean进行自动装配<br>当`@Autowired`装配到集合中的时候，Spring会读取该集合类的信息，然后把类型兼容的Bean都匹配上。其中Map上 Spring会把Bean的名字作键，Bean的内容做值
 	* `@Resource, @Inject`的功能类似，一般建议使用`@Autowired`
