@@ -1676,7 +1676,7 @@ properties 文件内容:<br>
 		```
 		 XML文件内容:
 		 
-			```xml
+		```xml
 			<!--配置C3P0 -->
 			<context: property-placeholder
 						location = "classpath: properties 文件路径">
@@ -1701,7 +1701,7 @@ properties 文件内容:<br>
 									 value = "${jdbc.maxPoolSize}">
 				</property>
 			</bean>
-			```
+		```
 
 	+ 2). 获取IOC容器：
 
