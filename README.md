@@ -711,17 +711,17 @@ public List findStudents(String name,int age){
 
 
 	* Ehcache 配置文件:
-
-		> * **`<diskStore path=""> `**: 指定一个目录，当Ehcache把数据写到磁盘上的时候，把数据写到这个目录下。
-		> * **`<defalutCache>`**:默认的数据过期策略。
-		> * **`<cache name="">`**:设定具体的命名缓存的数据过期策略，其中每一个命名缓存代表着一个缓存区域。缓存区域(region): 一个具有名称的缓存块，可以给每一个缓存区域设定不同的缓存策略.<br>
-		> * **如果没有设置任何的缓存区域，那么被缓存的所有对象都会使用默认的缓存策略(<defalutCache>)**
+		 * **`<diskStore path=""> `**: 指定一个目录，当Ehcache把数据写到磁盘上的时候，把数据写到这个目录下。
+		* **`<defalutCache>`**:默认的数据过期策略。
+		* **`<cache name="">`**:设定具体的命名缓存的数据过期策略，其中每一个命名缓存代表着一个缓存区域。缓存区域(region): 一个具有名称的缓存块，可以给每一个缓存区域设定不同的缓存策略.<br>
+		* **如果没有设置任何的缓存区域，那么被缓存的所有对象都会使用默认的缓存策略(<defalutCache>)**
 			+ name属性: 设置缓存的名字
 			+ maxInMemory属性:设置基于内存的缓存中可存放的最大对象数目
 			+ eternal属性: 设置对象是否为永久的,true表示用户过期。此时忽略 timeToIdleSeconds 和 timeToLiveSeconds 属性，默认为false。
 			+ timeToIdleSecond属性: 设置对象的最长空闲时期，以秒为单位，超过这个时间对象过期，当对象过期时Ehcache会把这个对象从缓存中清除，如果为0，代表这个对象可以无限期的处于空闲状态
 			+ timeToLiveSecond属性: 设置对象的最长生存时间，超过这个时间，对象过期。如果为0，代表这个对象可以无限期的存在于缓存中。该属性必须大于或等于 timeToIdleSeconds的属性值
 			+ overflowToDisk属性:设置基于内存的缓存中的对象到达上限后，是否将基础的对象写入基于硬盘的缓存中。
+
 * Ehcache 的命名方法:
 
 	* Hibernate在不同的缓存区域保存不同的类/集合
@@ -729,21 +729,19 @@ public List findStudents(String name,int age){
 	* 对于集合而言:区域的名称是类名+属性名 即: 包名.类名.属性名
 
 * Ehcache的查询缓存: 默认情况下，设置的缓存对于HQL和QBC是无效的。可以通过调用`query.setCacheable(true)` 来设置查询缓存。<br>
-	> 并且要在xml文件中加入
-
-
+	+ 并且要在xml文件中加入
+		```
 		<property name="cache.use_query_cache"></property>
+		```
+		
+	+  来声明开启查询缓存。
+	+**注意:** 查询缓存是依赖于二级缓存的。更新时间戳缓存(UpdateTimeStampCache): 主    要用于存放对于查询结果相关的表进行插入，更新，删除操作的时间戳。Hibernate通过时间   戳区域来判断查询结果是否过期。<br>
 
-
-	> 来声明开启查询缓存。<br>
-	> **注意:** 查询缓存是依赖于二级缓存的。更新时间戳缓存(UpdateTimeStampCache): 主    要用于存放对于查询结果相关的表进行插入，更新，删除操作的时间戳。Hibernate通过时间   戳区域来判断查询结果是否过期。<br>
-
-	> * 更新时间缓存的过程:
-	>
-		>* T1时刻 执行查询操作，并将结果放入QueryCache区域
-		>* T2时刻 对查询结果相关的表进行更新操作，并放入UpdateTimeStampCache区域
-		>* T3时刻 首先判断T1,T2的大小。若T1<T2 则丢弃QueryCache的查询结果并重新查询数据; 若T1>T2 则直接从QueryCache中获取查询结果
-		>* **注意:** T1,T2无时间前后的关系(了解即可)
+	+ 更新时间缓存的过程:
+		- T1时刻 执行查询操作，并将结果放入QueryCache区域
+		- T2时刻 对查询结果相关的表进行更新操作，并放入UpdateTimeStampCache区域
+		- T3时刻 首先判断T1,T2的大小。若T1<T2 则丢弃QueryCache的查询结果并重新查询数据; 若T1>T2 则直接从QueryCache中获取查询结果
+		- **注意:** T1,T2无时间前后的关系(了解即可)
 
 
 **Hibernate 管理SESSION对象生命周期的方法：**
