@@ -412,22 +412,23 @@ transaction.begin();
 
 * 多端同上使用`<manyToOne 标签>`,在一端需要通过写下面的代码进行映射
 
-	```
+```
 	<set name, table>
 	    <key column><key/>
 	    <one-To-many class=one端的类 />
 	</set>
-	```
+```
 
-	> *  插入：无论先存One和Many的哪一端，都会有insert和update语句 而且先存Many时update语句相对较多。主要是因为One的一端和Many的一端互相都维护关联关系，所以会多出update。**可以通过设置set标签中的inverse来决定哪一方维护表之间的关系，true的一方为被动维护，而false的一方为主动维护。**通常在一对多的情况下设置Many为主控方有助于性能的改善。**若设为One的一端是主控会多出Update语句。建议先save One的一端。**
-	> *  查询：
-	   - 1. 查询时多Many一端的集合使用延迟加载
-	    - 2. 返回Many一段的集合是hibernate的集合类型，该类型具有延迟加载和存放代理对象的功能。
-	    - 3. 若调用前关闭session可能会抛出lazyInitialization Exception
-	    - 4. 在需要使用集合元素的时候set集合才会初始化。
++   插入：无论先存One和Many的哪一端，都会有insert和update语句 而且先存Many时update语句相对较多。主要是因为One的一端和Many的一端互相都维护关联关系，所以会多出update。**可以通过设置set标签中的inverse来决定哪一方维护表之间的关系，true的一方为被动维护，而false的一方为主动维护。**通常在一对多的情况下设置Many为主控方有助于性能的改善。**若设为One的一端是主控会多出Update语句。建议先save One的一端。**
+
++  查询：
+	- 1. 查询时多Many一端的集合使用延迟加载
+	- 2. 返回Many一段的集合是hibernate的集合类型，该类型具有延迟加载和存放代理对象的功能。
+	- 3. 若调用前关闭session可能会抛出lazyInitialization Exception
+	- 4. 在需要使用集合元素的时候set集合才会初始化。
 	   
-	>* `<set>`标签的cascade属性(开发时不建议使用，建议使用手工的方式进行添加，删除)：delete-orphan级联删除 其中save-update属性为级联保存
-	>* OrderBy属性:select 查询的时候，orderBy会对集合中的元素进行排序。其中orderBy中使用的是表的字段名，而不是持久化类的属性名。OrderBy还可以加入sql函数
+* `<set>`标签的cascade属性(开发时不建议使用，建议使用手工的方式进行添加，删除)：delete-orphan级联删除 其中save-update属性为级联保存
+	* OrderBy属性:select 查询的时候，orderBy会对集合中的元素进行排序。其中orderBy中使用的是表的字段名，而不是持久化类的属性名。OrderBy还可以加入sql函数
 
 
 
@@ -711,7 +712,7 @@ public List findStudents(String name,int age){
 
 	* Ehcache 配置文件:
 
-		> * **`<diskStore path=""> :`**指定一个目录，当Ehcache把数据写到磁盘上的时候，把数据写到这个目录下。
+		> * **`<diskStore path=""> `**: 指定一个目录，当Ehcache把数据写到磁盘上的时候，把数据写到这个目录下。
 		> * **`<defalutCache>`**:默认的数据过期策略。
 		> * **`<cache name="">`**:设定具体的命名缓存的数据过期策略，其中每一个命名缓存代表着一个缓存区域。缓存区域(region): 一个具有名称的缓存块，可以给每一个缓存区域设定不同的缓存策略.<br>
 		> * **如果没有设置任何的缓存区域，那么被缓存的所有对象都会使用默认的缓存策略(<defalutCache>)**
