@@ -1661,12 +1661,12 @@ properties 文件内容:<br>
 **SpringDATA 支持的关系数据存储技术:** JDBC, JPA。<br>
 **JPA SpringDATA:** 致力于减少数据访问层(DAO)的开发量。 开发者唯一要做的就知识 声明持久层接口, 其他的均有SpringDATA JPA 来完成<br>
 
-#####配置步骤:
+##### 配置步骤:
 * a. 配置Spring 整合JPA
-	* 1). 创建db.properties:<br>
+	+ 1). 创建db.properties:<br>
 	 properties 文件内容:<br>
 
-		```
+		```java
 			jdbc.user = root
 			jdbc.password = password
 			jdbc.driverClass = com.mysql.jdbc.Driver(以MySQL为例)
@@ -1676,7 +1676,7 @@ properties 文件内容:<br>
 		```
 	 XML文件内容：<br>
 
-		```
+		```xml
 		<!--配置C3P0 -->
 		<context: property-placeholder
 					location = "classpath: properties 文件路径">
@@ -1703,18 +1703,18 @@ properties 文件内容:<br>
 		</bean>
 		```
 
-	* 2). 获取IOC容器：
+	+ 2). 获取IOC容器：
 
-		```
+		```java
 		ApplicationContext ctx =
 			new ClassPathXmlApplicationContext("Spring的配置文件名");
 		DataSource dataSource = ctx.getBean(DataSource.class);
 		dataSource.getConnection();
 		```
 
-	* 3). 配置JPA的`EntitiyManagerFactory`<br>
+	+ 3). 配置JPA的`EntitiyManagerFactory`<br>
 
-		```
+		```xml
 		<bean id= "entityManagerFactory"
 			class = "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 			<property name = "dataSource"
@@ -1759,9 +1759,9 @@ properties 文件内容:<br>
 		 </bean>
 		```
 
-	* 4). 配置JPA使用的事务管理器
+	+ 4). 配置JPA使用的事务管理器
 
-	```
+	```xml
 	<bean id="transactionManager"
 	class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory"
@@ -1769,14 +1769,14 @@ properties 文件内容:<br>
 	</bean>
 	```
 
-	* 5).
-		* a. 配置支持注解的事务配置<br>
+	+ 5).
+		- a. 配置支持注解的事务配置<br>
 	`<tx:annotation-driven transaction-manager="transactionManager" />`
-		* b. 在Spring配置文件中配置Spring DATA:<br>
+		- b. 在Spring配置文件中配置Spring DATA:<br>
 		加入 **spring-data-commons-X.X.X.RELEASE.jar  spring-data-jpa--X.X.X.RELEASE.jar  slf4j-api-X.X.X.jar**<br>
 		在Spring XML配置文件中导入JPA的命名空间。
 
-		```
+		```xml
 		<jpa:repositories
 	                	base-package = "需要被扫描注解的 包名.类名"
 			(Spring自动扫描Repository的bean所在的package，
@@ -1785,7 +1785,7 @@ properties 文件内容:<br>
 		</jpa:repositories>
 		```          
 
-		* c. 声明持久层接口，该接口需要基础Repository
+		- c. 声明持久层接口，该接口需要基础Repository
 	                创建持久化Repository接口: 需要继承 Repository<Entity实体的类型, 主键的类型>
 	                并在接口中加入相应的get风格的方法即可。
 		* d. 在接口中声明需要的方法
