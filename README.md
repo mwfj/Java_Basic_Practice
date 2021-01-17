@@ -421,7 +421,6 @@ transaction.begin();
 
 	> *  插入：无论先存One和Many的哪一端，都会有insert和update语句 而且先存Many时update语句相对较多。主要是因为One的一端和Many的一端互相都维护关联关系，所以会多出update。**可以通过设置set标签中的inverse来决定哪一方维护表之间的关系，true的一方为被动维护，而false的一方为主动维护。**通常在一对多的情况下设置Many为主控方有助于性能的改善。**若设为One的一端是主控会多出Update语句。建议先save One的一端。**
 	> *  查询：
-	>
 	    >* 1. 查询时多Many一端的集合使用延迟加载
 	    >* 2. 返回Many一段的集合是hibernate的集合类型，该类型具有延迟加载和存放代理对象的功能。
 	    >* 3. 若调用前关闭session可能会抛出lazyInitialization Exception
