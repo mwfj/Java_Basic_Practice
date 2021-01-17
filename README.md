@@ -1242,8 +1242,8 @@ Spring Construction：
 			</constructor-args>
 		 </bean>
 	```
-在SQL语句中可以为参数起名字, 即可以使用": 变量名"以代替"?"占位符。<br>
-例:
+	在SQL语句中可以为参数起名字, 即可以使用": 变量名"以代替"?"占位符。<br>
+	例:
 
 	```xml
 		String sql = "INSERT INTO table(id, name, age)
@@ -1254,25 +1254,26 @@ Spring Construction：
 		paramMap.put("age", "25");
 		NamedParameterJdbcTemplate.update(sql, paramMap);
 	```
-+ `NamedParameterJdbcTemplate.update(sql, paramMap)`的<br>
-
-	* 好处: 若有多个参数，不需要向以前占位符去对应位置，而是直接对应参数名。方便维护
-	* 坏处: 相比传统方法, 比较麻烦
-
-`NamedParameterJdbcTemplate.update(sql, SqlParameterSource):` SQL语句的参数名必须和类的属性名一致，使用SqlParameterSource的`BeanPropertySqlParameterSource`的实现类作为参数<br>
-例如:
 	
-	``` java
-		String sql = "INSERT INTO table(id, name, age)
-							 VALUES (:id,:name,:age)";
-		Object object = new Object();
-		object.setId(1);
-		object.setName("二狗");
-		object.setAge(25);
-		SqlParameterSource SqlParameterSource =
-					new BeanPropertySqlParameterSource(object);
-		NamedParameterJdbcTemplate.update(sql, SqlParameterSource);
-	```
+	+ `NamedParameterJdbcTemplate.update(sql, paramMap)`的<br>
+	
+		* 好处: 若有多个参数，不需要向以前占位符去对应位置，而是直接对应参数名。方便维护
+		* 坏处: 相比传统方法, 比较麻烦
+
+	`NamedParameterJdbcTemplate.update(sql, SqlParameterSource):` SQL语句的参数名必须和类的属性名一致，使用SqlParameterSource的`BeanPropertySqlParameterSource`的实现类作为参数<br>
+	例如:
+		
+		``` java
+			String sql = "INSERT INTO table(id, name, age)
+								 VALUES (:id,:name,:age)";
+			Object object = new Object();
+			object.setId(1);
+			object.setName("二狗");
+			object.setAge(25);
+			SqlParameterSource SqlParameterSource =
+						new BeanPropertySqlParameterSource(object);
+			NamedParameterJdbcTemplate.update(sql, SqlParameterSource);
+		```
 
 #### Spring中的事务管理:
 
