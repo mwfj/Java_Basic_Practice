@@ -316,9 +316,7 @@ transaction.begin();
 * 游离状态：表中可能有对应的数据，但其对象不在Session中； 持久化状态:表中有数据，Session中有对象，且二者唯一对应。临时对象，既不在数据库也不在session且OID为空；
 * 删除状态：曾经在Session缓存中,但现在应用程序不再使用，且数据库中没有与其对应的OID记录<br>
 
-	<img src="hibernate_object_Statement_trasfer.png" width="550px" hight="550px"
-	style = "text-align: center;"/\>
-
+	![hibernate_object_Statement_trasfer](pic/hibernate_object_Statement_trasfer.png)
 #### Session中的主要方法介绍
 * ***save():***
 	* 1.使一个临时对象变为持久化对象
@@ -505,8 +503,7 @@ transaction.begin();
 		* 3. 没有冗余的字段
 
 
-	<img src="hibernate_mapping_mode.png" width="550px" hight="550px"
-	style = "text-align: center;"/>
+	![pic/hibernate_mapping_mode](pic/hibernate_mapping_mode.png)
 
 
 
@@ -666,8 +663,7 @@ public List findStudents(String name,int age){
 
 #### Hibernate的缓存：
 
-<img src="Hibernate_cache_structure.png" width="550px" hight="550px"
-	style = "text-align: center;"/>
+![Hibernate_cache_structure](pic/Hibernate_cache_structure.png)
 
 **要求掌握一级缓存的理解，二级缓存的使用。**
 
