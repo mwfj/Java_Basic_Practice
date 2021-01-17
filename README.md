@@ -1199,25 +1199,26 @@ Spring Construction：
 	</bean>
 	```
 * b. 通过`JDBCTemplate.update(sql语句,占位符参数);` 来执行**INSERT, UPDATE,DELETE**操作。
-	通过:
+	- 通过:
 
 	```java
 	JDBCTemplate.batchUpdate(sql语句,batchArgs(List<Object[]>));
 	```
-来多条记录，最后一个参数是`List<Object[]>`的类型<br>  利用`JDBCTemplate`从数据库中获取一条记录，并且实际上对应一个对象。
+	- 来多条记录，最后一个参数是`List<Object[]>`的类型<br>  利用`JDBCTemplate`从数据库中获取一条记录，并且实际上对应一个对象。
 
 	```java
 	RowMapper<Object> rowMapper =
 					new BeanPropertyRowMapper<>(Object.class);
 	```
-其中的**RowMapper** 是指定如何去映射结果集的行，常用的实现类为**BeanPropertyRowMapper**
+	- 其中的**RowMapper** 是指定如何去映射结果集的行，常用的实现类为**BeanPropertyRowMapper**
 
-```java
-	Object object =
-			JDBCTemplate.queryForObject(sql语句, rowMapper, args)
-	 //在sql语句中需要对类名和表中列的属性名进行映射
-	 //即 select row_name(列名) rowName(类的属性名)。
-```
+	```java
+		Object object =
+				JDBCTemplate.queryForObject(sql语句, rowMapper, args)
+		 //在sql语句中需要对类名和表中列的属性名进行映射
+		 //即 select row_name(列名) rowName(类的属性名)。
+	```
+
 ***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
 
 ```java
