@@ -244,18 +244,18 @@ transaction.begin();
 
 * **e. 双向多对多关联关系:** 使用`@ManyToMany`注解来标注且必须有一方通过设置注解中的*mappedBy*来放弃维护，之后使用
 
-	```
+```
 	@JoinTable (joinColumns 当前表的外键=
 				{@JoinColum(name, referenceColumnName指向对应的列名)},
 				inverseJoinColumns 关联的对象在数据表中的外键
 					={@JoinColumn(name, referenceColumnName)}  )
-	```
+```
 其中而另一端的`@ManyToMany`需要添加*mappedBy*属性。<br>
 通过`@JoinTable`来创建一个中间表:
 
-	* 1) 属性name 表示中间表的名字
-	* 2) JoinColumns 映射当前类所在表在中间表中的外键; 其中 该属性中的name代表外键列的列名字, referenceColumnName指外键列关联当前对象的哪一个属性，即当前表中的哪一列。
-	* 3) inverseJoinColumns 用来映射关联的类所在的中间表的外键。
+*  1) 属性name 表示中间表的名字
+*  2) JoinColumns 映射当前类所在表在中间表中的外键; 其中 该属性中的name代表外键列的列名字, referenceColumnName指外键列关联当前对象的哪一个属性，即当前表中的哪一列。
+*  3) inverseJoinColumns 用来映射关联的类所在的中间表的外键。
 对于关联的集合对象，默认使用懒加载的策略。无论是使用维护关联的关系的一方还是不维护关联关系的一方,他们的策略是一样的。即都使用懒加载。
 
 #### 6. JPA中的二级缓存
@@ -328,22 +328,19 @@ transaction.begin();
 
 * **session中get与load的区别：**
 
-	> * load找到数据，先返回数据缓存到SESSION中，当用户检索时会首先查询session中是否存在数据，若没有回到二级缓存查询数据,若二级缓存没有才会发起select去数据库查询。
-	> * get找不到el组件则返回为空，而load找不到则会抛出异常；
-	> * 而在session中，如果一个对象是NEW的那么session中的SaveOrUpdate方法会自动调用save ，若已经存在那么session会调用update方法；
-	>
-		>1. get方法会立即加载对象，load方法是延迟加载，即会先返回以代理对象，若不适用该对象，则不会立即加载
-		>2. load方法会抛出 lazyinitalionException异常(通常会在初始化代理对象前就已经关闭了session对象时会抛出该异常)
-		>3. 若数据表中没有对应的记录，Session也没有被关闭，同时需要使用对象时，get返回null（老师认为这更好，因为你可以自己判断）,load则会抛出异常<br>load throws ObjectNotFoundException(load不适用该对象时则没问题)
+	 * load找到数据，先返回数据缓存到SESSION中，当用户检索时会首先查询session中是否存在数据，若没有回到二级缓存查询数据,若二级缓存没有才会发起select去数据库查询。
+	 * get找不到el组件则返回为空，而load找不到则会抛出异常；
+	 * 而在session中，如果一个对象是NEW的那么session中的SaveOrUpdate方法会自动调用save ，若已经存在那么session会调用update方法；
+		- 1. get方法会立即加载对象，load方法是延迟加载，即会先返回以代理对象，若不适用该对象，则不会立即加载
+		- 2. load方法会抛出 lazyinitalionException异常(通常会在初始化代理对象前就已经关闭了session对象时会抛出该异常)
+		- 3. 若数据表中没有对应的记录，Session也没有被关闭，同时需要使用对象时，get返回null（老师认为这更好，因为你可以自己判断）,load则会抛出异常<br>load throws ObjectNotFoundException(load不适用该对象时则没问题)
 * update方法；使一个对象从游离状态变为持久化状态。
-
-	> 1. 若更新一个持久化对象，不需要显式调用update方法,因为在Session.commit()是先执行Session的flush
-	> 2. 若更新一个游离状态对象，则需要显式调用update方法
-	> 3. 使用update方法需要注意的事情:
-	>
-		>* 对于游离状态：无论要更新的游离对象和数据表的记录是否一致，都会调用update()。与hibernate触发器一起使用的时候有可能会有问题, **在.hbm.xml的绑定类标签中将select—before-update属性设置为true即可解决这个问题(通常不建议设置)**
-		>* 若对象在数据库中没有对应记录调用但还是调用update()的时候，会抛出异常
-		>* 当update()关联一个游离对象是，若数据库中已经存在了对应OID的记录，则会抛出异常，因为在session缓存中不能有两个OID相同的对象
+	- 1. 若更新一个持久化对象，不需要显式调用update方法,因为在Session.commit()是先执行Session的flush
+	-  2. 若更新一个游离状态对象，则需要显式调用update方法
+	- 3. 使用update方法需要注意的事情:
+		+  对于游离状态：无论要更新的游离对象和数据表的记录是否一致，都会调用update()。与hibernate触发器一起使用的时候有可能会有问题, **在.hbm.xml的绑定类标签中将select—before-update属性设置为true即可解决这个问题(通常不建议设置)**
+		+ 若对象在数据库中没有对应记录调用但还是调用update()的时候，会抛出异常
+		+ 当update()关联一个游离对象是，若数据库中已经存在了对应OID的记录，则会抛出异常，因为在session缓存中不能有两个OID相同的对象
 
 * create():  每次运行先删除旧表，再创建新表并进行update; 一般数据库的ID值是不能设置的，也禁止其他应用程序更改，在hibernate虽然可以设置，但是最好不要设置
 
