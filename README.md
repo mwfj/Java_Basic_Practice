@@ -1198,7 +1198,8 @@ Spring Construction：
 	    </property>
 	</bean>
 	```
-* b. 通过`JDBCTemplate.update(sql语句,占位符参数);` 来执行**INSERT, UPDATE,DELETE**操作。<br>通过
+* b. 通过`JDBCTemplate.update(sql语句,占位符参数);` 来执行**INSERT, UPDATE,DELETE**操作。
+	å通过
 
 	```java
 	JDBCTemplate.batchUpdate(sql语句,batchArgs(List<Object[]>));
@@ -1216,7 +1217,7 @@ Spring Construction：
 			JDBCTemplate.queryForObject(sql语句, rowMapper, args)
 	 //在sql语句中需要对类名和表中列的属性名进行映射
 	 //即 select row_name(列名) rowName(类的属性名)。
-```
+	```
 ***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
 
 	```java
@@ -1231,7 +1232,7 @@ Spring Construction：
 * c. 在JDBCTemplate使用具有名字参数NamedParameterJdbcTemplate: <br>`NamedParameterJdbcTemplate`，该对象可以使用具名参数，但是该对象没有无参构造器，**所以必须为其构造器制定参数**<br>
 在XML文件中配置具名参数:
 
-	```
+	```xml
 		<bean id = "namedParameterJdbcTemplate" class="
 		org.springframework.jdbc.core.namedparam
 							.NamedParameterJdbcTemplate">
@@ -1252,9 +1253,9 @@ Spring Construction：
 		NamedParameterJdbcTemplate.update(sql, paramMap);
 	```
 `NamedParameterJdbcTemplate.update(sql, paramMap)`的<br>
->
-	>* 好处: 若有多个参数，不需要向以前占位符去对应位置，而是直接对应参数名。方便维护
-	>* 坏处: 相比传统方法, 比较麻烦
+
+	* 好处: 若有多个参数，不需要向以前占位符去对应位置，而是直接对应参数名。方便维护
+	* 坏处: 相比传统方法, 比较麻烦
 
 `NamedParameterJdbcTemplate.update(sql, SqlParameterSource):` SQL语句的参数名必须和类的属性名一致，使用SqlParameterSource的`BeanPropertySqlParameterSource`的实现类作为参数<br>
 例如:
