@@ -134,10 +134,12 @@ Spring MVC+MyBatis+Spring(老师认为最好的组合)
 
 其中，在 `<provider>` 标签下配置ORM产品
 
+	```xml
 	    eg. hibernate
 	    <provider>
 	    	org.hibernate.ejb.HibernatePersistence
 	    </provider>
+	   ```
 
 
 并且在`<properties>`标签下配置数据库属性和hibernate的基本属性, 在 `<class>` 来添加持久化类
@@ -190,7 +192,7 @@ Spring MVC+MyBatis+Spring(老师认为最好的组合)
 #### 4.JPA事务的生成步骤:
 *   1) 创建
 
-```
+```java
 EntityManagerFactory EntityManagerFactory emf  =
 
 Persistence.createEntityManagerFactory(persistenceUnitName(String))
@@ -199,14 +201,14 @@ Persistence.createEntityManagerFactory(persistenceUnitName(String))
 
 * 2) 创建EntityManager
 
-```
+```java
 EntityManager entity_manager =  
 				EntityManagerFactory.createEntityManager;
 ```
 
 * 3) 开启事务
 
-```
+```java
 EntityTransaction transaction = EntityManager.getTransaction();
 transaction.begin();
 ```
@@ -244,7 +246,7 @@ transaction.begin();
 
 * **e. 双向多对多关联关系:** 使用`@ManyToMany`注解来标注且必须有一方通过设置注解中的*mappedBy*来放弃维护，之后使用
 
-```
+```java
 	@JoinTable (joinColumns 当前表的外键=
 				{@JoinColum(name, referenceColumnName指向对应的列名)},
 				inverseJoinColumns 关联的对象在数据表中的外键
@@ -262,10 +264,11 @@ transaction.begin();
 在persistence.xml中添加二级缓存的配置，与hibernate xml配置一毛一样<br>。
 同时还需要再在xml中配置二级缓存策略(注意:这个配置必须要放到前面配置的后面):
 
-
+```xml
 	 <shared-cache-mode>
 	    ENABLE_SELECTIVE
 	 </shared-cache-mode>
+```
 
 并在需要二级缓存的实体对象上添加**`@Cacheable(true)`**注解<br>
 其中:
@@ -436,11 +439,12 @@ transaction.begin();
 需要使用中间表来维护两表之间的关系
 对于xml: 文件
 
-
+```xml
 	<set>
 	    <key><column name=“”></key>
 	    <many-to-many column name=“”></many-to-many>
 	  </set>
+```
 
 使用上述结构来设置中间表。<br>
 **其中many-to-many指定多对多的关联关系; column执行Set集合中的持久化类在中间表的外键列的名称.**
@@ -587,12 +591,12 @@ Hibernate Query Language一种面向对象的查询语言
 
 * **c. 命名查询:** Hibernate 允许在映射文件中定义字符串形式的查询语句，需要在xml文件中进行配置:添加**`<query>`**元素用于定义一个HQL查询语句，它与**`<class>`**元素并列。<br> 在程序中通过Session中的getNamedQuery()方法查询来获取对应的Query对象。
 
-	```
+```xml
 	     eg:
 	         <query name=“”>
 	             <![CDATA[SQL语句]]>
 	         </query>
-	```
+```
 
 * **d. 投影查询**: 查询结果仅包含部分属性(通过SELECT语句事项);Query的list()方法返回集合中包含的数组类型的元素，每个对象数组代表查询的是一条记录。<br>可以在持久化类中定义一个对象的构造器来包装投影查询所返回的记录。
 * **e. 报表查询:** 利用聚集函数，groupBy 和HAVING来进行查询
@@ -619,7 +623,7 @@ Hibernate Query Language一种面向对象的查询语言
 		例如：使用QBC实现动态查询:
 
 
-```
+```java
 public List findStudents(String name,int age){
 
 	Criteria criteria =   session.createCriteria(Student.class);
@@ -689,26 +693,22 @@ public List findStudents(String name,int age){
 * 对于ehchche的XML文件，如果对于属性不了解使用默认（default）就可以了.之后写上目标文件的位置，(XML文件在官方文档/project/etc/ehcache.xml)
 * 使用ehcache的时候需要使用@cacahe标签
 * 也可以在Hibernate的XML配置文件中:
-	> * 首先要启动缓存:
+	+ 首先要启动缓存:ml
+		`<property name="cache.use_second_level_cache">true<property>`
+	+ 之后加入
 
-
-		<property name="cache.use_second_level_cache">true<property>
-
-
-	> * 之后加入
-
-
+	```xml
 		<property name="hibernate.cache.region.fractory_class">
 		org.hibernate.cache.ehcache.EhCacheRegionFactory
-		</property>
+			</property>
+	```
 
+	+ 并且还要在XML中添加
 
-	> * 并且还要在XML中添加
-
-
+	```
 		<class-cache usage = "上述的四个并发策略" class="包名+类名">
 		(也可以在.hbm.xml中进行配置)
-
+	```
 
 	* Ehcache 配置文件:
 		 * **`<diskStore path=""> `**: 指定一个目录，当Ehcache把数据写到磁盘上的时候，把数据写到这个目录下。
@@ -782,10 +782,10 @@ Spring Construction：
 		</bean>
 
 
-	> * **字面值:**可以通过字符串表示的值，通过`<value>`元素或value属性进行注入，当包含特殊字符  的时候可以使用`<![CDATA[]]>`将该特殊字符包裹起来。
-	> * Bean之间的引用:
+	+ **字面值:**可以通过字符串表示的值，通过`<value>`元素或value属性进行注入，当包含特殊字符  的时候可以使用`<![CDATA[]]>`将该特殊字符包裹起来。
+	+  Bean之间的引用:
 
-
+	```xml
 		<bean id="" class= "包名.类名"(需要映射的实体类的位置)>
 		    <property
 		    	name="set方法中引用类型的名字"
@@ -809,11 +809,12 @@ Spring Construction：
 		        </bean>
 		    </property>
 		</bean>
+	```
 
 * d. 在需要用到spring的地方配置：
-	* 1) 创建Spring的IOC容器对象 :
+	+ 1) 创建Spring的IOC容器对象 :
 
-		```
+		``` java
 		ApplicationContext ApplicationContext =
 		new ClassPathXmlApplicationContext("第二步建立的XML文件名");
 		```
