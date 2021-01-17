@@ -1650,9 +1650,9 @@ properties 文件内容:<br>
 	```
 
 	- 在DAO类中获取和当前事务相关的EntityManager对象:(相当于在Hibernate和Spring整合中通过getCurrentSession()来获取当且IOC容器中的Session)
-		+ 1) 在DAO类中添加Spring的 @Repository 注解
-		+ 2) 在类中添加JPA的 @PersistenceContext 注解 来标记成员变量并且与EntityManager对象进行关联。
-		+ 3）创建EntityManager对象,并且创建相应的 get set 方法 并在相应的方法中进行数据库的操作
+		+ 1)  在DAO类中添加Spring的 @Repository 注解
+		+ 2)  在类中添加JPA的 @PersistenceContext 注解 来标记成员变量并且与EntityManager对象进行关联。
+		+ 3) 创建EntityManager对象,并且创建相应的 get set 方法 并在相应的方法中进行数据库的操作
 
 
 #### Spring DATA:
