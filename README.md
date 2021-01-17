@@ -1000,8 +1000,8 @@ Spring Construction：
 通常的bean是单例的，即当调用的bean id相同，返回的是同一个bean。<br>
 可以在`<bean>`设置属性 scope = "" 来配置该bean的作用域
 
-> * 其中:singleton 单例(默认):整个生命周期仅每个bean id仅创建一个bean，在初始化IOC容器时被创建
-> * prototype 原型:每次想IOC容器获取bean的时候，都会产生一个新的bean
+* 其中:singleton 单例(默认):整个生命周期仅每个bean id仅创建一个bean，在初始化IOC容器时被创建
+* prototype 原型:每次想IOC容器获取bean的时候，都会产生一个新的bean
 
 #### Spring使用外部属性文件:
 
@@ -1015,14 +1015,18 @@ Spring Construction：
 使用**#{}** 作为界定符
 
 * a. 为字面值进行赋值(不推荐): `value = "#{5}" value = "#{89.7}" value = "#{true}" value = "#{"hahaha"}"。
-`* b. 引用bean的属性，方法: 通过T()可以调用类中的静态方法，此外SPEL还支持算术运算，正则表达式等
+* b. 引用bean的属性，方法: 通过T()可以调用类中的静态方法，此外SPEL还支持算术运算，正则表达式等
 
+	```java 
 		eg: value = "#{ T(java.lang.Math).PI * 50 }"
-
+	```
 
 	通过**#{其他bean的id}** 来引用其他的bean;    **#{其他bean的id.方法}**来引用其他的bean的方法。
 
-		eg: #{car}, #{car.brand}, #{car.price >30000 ? 金领 : 白领}
+	```xml
+	eg: 
+		#{car}, #{car.brand}, #{car.price >30000 ? 金领 : 白领}
+	```
 
 
 #### Spring管理的Bean的生命周期:
