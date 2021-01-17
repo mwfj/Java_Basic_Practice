@@ -1674,34 +1674,33 @@ properties 文件内容:<br>
 			jdbc.initPoolSize = 5
 			jdbc.maxPoolSize = 10
 		```
-	 XML文件内容：<br>
-
-		```xml
-		<!--配置C3P0 -->
-		<context: property-placeholder
-					location = "classpath: properties 文件路径">
-		<bean id = "datasSource"
-			 class = "com.mchange.v2.c3p0.ComboPoolledDataSource">
-			<property name = "user",
-								value = "${jdbc.user}">
-			</property>
-			<property name = "password",
-								value = "${jdbc.password}">
-			</property>
-			<property name = "driverClass",
-								value = "${jdbc.driverClass}">
-			</property>
-			<property name = "jdbcUrl",
-								value = "${jdbc.jdbcUrl}">
-			</property>
-			<property name = "initPoolsize",
-								value = "${jdbc.initPoolSize}">
-			</property>
-			<property name = "maxPoolSize",
-								 value = "${jdbc.maxPoolSize}">
-			</property>
-		</bean>
-		```
+		 XML文件内容:
+			```xml
+			<!--配置C3P0 -->
+			<context: property-placeholder
+						location = "classpath: properties 文件路径">
+			<bean id = "datasSource"
+				 class = "com.mchange.v2.c3p0.ComboPoolledDataSource">
+				<property name = "user",
+									value = "${jdbc.user}">
+				</property>
+				<property name = "password",
+									value = "${jdbc.password}">
+				</property>
+				<property name = "driverClass",
+									value = "${jdbc.driverClass}">
+				</property>
+				<property name = "jdbcUrl",
+									value = "${jdbc.jdbcUrl}">
+				</property>
+				<property name = "initPoolsize",
+									value = "${jdbc.initPoolSize}">
+				</property>
+				<property name = "maxPoolSize",
+									 value = "${jdbc.maxPoolSize}">
+				</property>
+			</bean>
+			```
 
 	+ 2). 获取IOC容器：
 
