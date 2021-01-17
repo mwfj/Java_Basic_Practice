@@ -1912,7 +1912,7 @@ properties 文件内容:<br>
 	```
 
 
-#####Spring如何在WEB应用中使用：
+##### Spring如何在WEB应用中使用：
 
 * 需要额外导入Spring的WEB jar包: **Spring-web-X.X.X.RELEASE.jar     Spring-web-mvc-X.X.X.RELEASE.jar**
 * 与一般Spring一致，Spring也要对配置文件进行配置，配置方法相同
@@ -1948,7 +1948,7 @@ properties 文件内容:<br>
 
 		- ii. 在ServletContextListener的contextInitialized(ServletContextEvent)的方法中创建IOC容器
 
-		```xml
+		```java
 		//获取Spring 配置文件的位置。
 		ServletContext servletContext =
 			 ServletContextEvent.getServletContext("
@@ -1963,7 +1963,7 @@ properties 文件内容:<br>
 		
 		- iii. 创建Servlet 以得到IOC容器
 
-		```xml
+		```java
 			//从Application域中获得IOC容器的引用
 			ServletContext servletContext = getServletContext;
 			servletContext ctx =
@@ -1982,7 +1982,7 @@ properties 文件内容:<br>
 
 * a. 创建Spring的配置文件，并配置Spring 配置文件的名称和位置
 
-	```
+	```xml
 		<context-param>
 			<param-name>
 				自定义一个名字 例如SpringConfiguration
@@ -1996,7 +1996,7 @@ properties 文件内容:<br>
 
 * b. 启动IOC 容器的**ServletContextListener**
 
-	```
+	```xml
 		<listener>
 			<listener-class>
 			org.springframework.web.context.ContextLoaderListener
@@ -2006,7 +2006,7 @@ properties 文件内容:<br>
 
 * c. 从Application域中获取IOC容器实例并且从IOC容器实例中获得Bean
 
-	```
+	```xml
 		ApplicationContext ctx =
 			WebApplicationContextUtils.
 				getWebApplicationContext(application);
