@@ -1675,6 +1675,7 @@ properties 文件内容:<br>
 			jdbc.maxPoolSize = 10
 		```
 		 XML文件内容:
+		 
 			```xml
 			<!--配置C3P0 -->
 			<context: property-placeholder
