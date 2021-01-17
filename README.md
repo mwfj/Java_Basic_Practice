@@ -1870,23 +1870,23 @@ properties 文件内容:<br>
 	* c. 当SQL语句中存在"Like"关键字的时候， 可以在占位符或命名参数前后加入"%"，来完成LIKE所要表达的功能。<br>调用的时候把相应的LIKE关键词之间传入到方法的入参列表中即可。<br>
 	 	eg. <br>
 	
-		 	```java
-		 	@Query("SELECT table From My_Table p
-		 		WHERE p.table_name LIKE %?1% AND p.email = %?2% ")
-			List<Object> testQueryAnnotationParameter(
-									String tableName, Integer age);
-			```
+	 	```java
+	 	@Query("SELECT table From My_Table p
+	 		WHERE p.table_name LIKE %?1% AND p.email = %?2% ")
+		List<Object> testQueryAnnotationParameter(
+								String tableName, Integer age);
+		```
 			
 		eg. <br>
 	
-			```java
-			@Query("SELECT table From My_Table p
-			WHERE p.table_name LIKE %:t-name% AND p.email
-											LIKE %:t-email% ")
-			List<Object> testQueryAnnotationParameter2(
-				@Param("t-name") String tableName,
-				@Param("t-email") String email);
-			```
+		```java
+		@Query("SELECT table From My_Table p
+		WHERE p.table_name LIKE %:t-name% AND p.email
+										LIKE %:t-email% ")
+		List<Object> testQueryAnnotationParameter2(
+			@Param("t-name") String tableName,
+			@Param("t-email") String email);
+		```
 
 	* d. 想@Query 中要使用原生的SQL语句而不是JPQL时，
 	                    需要把原生的SQL语句放入@Query注解中的"value"属性中，并把"nativeQuery"属性设置为"true"
@@ -1900,9 +1900,9 @@ properties 文件内容:<br>
 *  在`@Query` 注解中编写JPQL语句的同时，需要再添加`@Modifying `进行修饰，已通过SpringDATA 进行**UPDAT和DELETE** 操作。<br>**但是SpringDATA 进行UPDAT和DELETE操作的时候必须要使用事务。
 **。<br>所以此时需要定义一个Service层的类，并在Service类的方法中来添加事务，并进行相应的事务操作。
 * 这是因为在默认情况在SpringDATA 上每个方法已经存在事务,但是这个事务是一个只读(read-only)事务, 所以不能进行更新和删除的操作，**故需要加入`@Modifying` 注解并且在Service类的方法中来添加事务**<br>
-eg. <br>
+	eg. <br>
 
-	```
+	```java
 		@Modifying
 		 @Query("UPDATE My_Table p
 		 		SET p.table_name = :tname AND p.age = :tage")
