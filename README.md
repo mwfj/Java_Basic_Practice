@@ -887,10 +887,10 @@ Spring Construction：
 * Spring中支持三种依赖注入的方式:
 	* a. 属性注入： 通过Setter方法对Bean的属性值和引用进行注入，这种注入方式是开发里面最常用的注入方式
 	* b. 构造器注入: 需要使用`<constructor-arg>`元素里进行声明，且`<constructor-arg>`中没有name属性。
-		> * 首先要在Entity类中创建一个带参数的构造方法
-		> * 之后在XML配置文件中加入
+		+ 首先要在Entity类中创建一个带参数的构造方法
+		+ 之后在XML配置文件中加入
 
-		```
+		```xml
 		<!--这里的标识符id是唯一的 -->
 		<bean id="" class= "包名.类名"(需要映射的实体类的位置)>
 			<!-- <constructor-arg>标签可以有多个，
@@ -907,10 +907,10 @@ Spring Construction：
 		</bean>
 		```
 	* c. 工厂方法注入(不推荐)
-		* Spring支持级联属性的赋值`<property name="bean_id.引用属性名"></property>` 属性需要先初始化，后才能被级联属性所赋值
-		* 配置Bean的集合属性:
+		+ Spring支持级联属性的赋值`<property name="bean_id.引用属性名"></property>` 属性需要先初始化，后才能被级联属性所赋值
+		+ 配置Bean的集合属性:
 
-			```
+			```xml
 			<bean id="" class="">
 			    <property name="">
 			        <list>
@@ -942,19 +942,21 @@ Spring Construction：
 		当配置独立的集合bean，便于多个bean对集合进行引用时需要导入`<util: set><util:       properties><util: list><util: map>`和 命名空间`<ref bean="">` <br>还可以通过p 命     名空间对bean的属性进行赋值，不过需要先导入p 命名空间。这种方式相对于以前的        bean配置方式相对简洁一些。<br>
 		例如: 一个Person实体类中有 name(String), age(integer), Car(一个类的引用)
 		在xml中可以利用P 命名空间对该类进行配置:
-
-
+		
+		```xml
 			<bean id= "" class="包名.Person"  
 				p:name=""
 				p:age=""(给普通变量进行赋值)
 			        p:car-ref = "" (给引用变量进行赋值)> </bean>
+		```
 
 #### Spring中的自动装配 （AutoWire）
 * Xml中配置自动装配:
 	在`<bean >`中的**autowire**中制定自动装配的模式, 注意在自动装配byName的时候，进行自动装配的Bean类中必须要有被自动装配的Bean类的setXXX方法
-	> * ByName:必须将目标bean的名称与属性名设置的完全相同<br>
+	+ **ByName:**必须将目标bean的名称与属性名设置的完全相同<br>
 		即bean的id值必须要与这个bean所对应的实体类中的setXXX属性名的XXX一致,如果有匹配的，则进行自动装配，否则就为null。
 
+		```xml
 		<!--若在xml文件中已经有<bean>配置了其他的类，
 		而这些类在配有<autowire ="ByName">
 		的bean类中刚好有setter风格的方法。
@@ -964,21 +966,23 @@ Spring Construction：
 		<bean id= "" class="包名.类名"
 			p:param=""
 			p:param-ref  autowire="ByName"></bean>
+		```
 
-
-	> * ByType: 根据bean的类型当前bean的属性的进行装配，但是当IOC容器中有多个目标与要配置的Bean类型一致时，不能进行自动装配的操作
-
+	+ **ByType:** 根据bean的类型当前bean的属性的进行装配，但是当IOC容器中有多个目标与要配置的Bean类型一致时，不能进行自动装配的操作
+		
+		```xml
 		<!--若在IOC容器中配置的bean类恰好与
 			<autowire ="ByType">的bean类中属性类型一致，
 			那么这些IOC容器的bean就会被自动装配-->
 		<bean id= "" class="包名.类名"
 			p:param=""
 			p:param-ref  autowire="ByType"></bean>
+		```
 
-	> * Construcor: （不推荐）
-		* 缺点:
-		    1. 由于AutoWire是bean级别的，所以一旦使用AutoWire的话，就会为当前bean的所有属性都必须使用自动装配
-		    2. 一旦指定了autowire的ByName or ByType的时候，要么只能根据名字要么只能根据类别，而不能兼而有之。所以自动装配的方式不够灵活
+	+ **Construcor:** （不推荐）
+		- 缺点:
+			1. 由于AutoWire是bean级别的，所以一旦使用AutoWire的话，就会为当前bean的所有属性都必须使用自动装配
+			2. 一旦指定了autowire的ByName or ByType的时候，要么只能根据名字要么只能根据类别，而不能兼而有之。所以自动装配的方式不够灵活
 
 #### Bean之间的关系
 * Bean配置的继承:
