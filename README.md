@@ -1976,7 +1976,7 @@ properties 文件内容:<br>
 
 
 
-#####使用Spring定义好的ServletContext来创建WEB应用:
+##### 使用Spring定义好的ServletContext来创建WEB应用:
 
 **使用alt+/ 选择 contextLoaderListener IDE会自动配置 `<context-param>和<listener>`**
 
@@ -2006,7 +2006,7 @@ properties 文件内容:<br>
 
 * c. 从Application域中获取IOC容器实例并且从IOC容器实例中获得Bean
 
-	```xml
+	```java
 		ApplicationContext ctx =
 			WebApplicationContextUtils.
 				getWebApplicationContext(application);
@@ -2021,43 +2021,44 @@ properties 文件内容:<br>
 是Spring MVC 是Spring为表现层提供的一种基于MVC设计理念的优秀的WEB框架，是目前最主流的MVC框架之一<br>Spring MVC通过一套MVC注解，让POJO成为处理请求的控制器，而不需实现任何的接口<br>同时Spring MVC支持REST风格的URL请求
 
 * ***配置步骤：***
-	* a. 加入jar包
+	+ a. 加入jar包
 	`Spring-beans-X.X.X.RELEASE.jar`, `Spring-context-X.X.X.RELEASE.jar`, `Spring-core-X.X.X.RELEASE.jar`, `Spring-web-X.X.X.RELEASE.jar`, `Spring-webmvc-X.X.X.RELEASE.jar`, `Spring-expression-X.X.X.RELEASE.jar`, `commoms-logging-X.X.X.jar   Spring-aop-X.X.X.RELEASE.jar`
-	* b. 在web.xml 中配置DispatcherServlet
+	+ b. 在web.xml 中配置DispatcherServlet
 	安装eclipse的Spring tools<br>
 	然后再web.xml 配置文件中 使用**alt+/ 选择DispatcherServlet**
 
-		```
-		<servlet>
-			<servlet-name>springDispatcherServlet</servlet-name>
-			<servlet-class>
-			org.springframework.web.servlet.DispatcherServlet
-			</servlet-class>
-			<!--配置DispatcherServlet的一个初始化参数，
-					其作用是配置Spring MVC配置文件的名称和位置 -->
-			<init-param>
-				<param-name>contextConfigLocation</param-name>
-				<param-value>classpath: Springmvc.xml
-				(XML文件名和路径君由用户自己设定)
-				</param-value>
-			</init-param>
-			<!--Servlet 是在第一次web.xml问价被加载的时候启动Servlet，
-						而不是第一次请求的时候 -->
-			<load-on-startup>1</load-on-startup>
-		</servlet>
-		```
+	```xml
+	<servlet>
+		<servlet-name>springDispatcherServlet</servlet-name>
+		<servlet-class>
+		org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<!--配置DispatcherServlet的一个初始化参数，
+				其作用是配置Spring MVC配置文件的名称和位置 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath: Springmvc.xml
+			(XML文件名和路径君由用户自己设定)
+			</param-value>
+		</init-param>
+		<!--Servlet 是在第一次web.xml问价被加载的时候启动Servlet，
+					而不是第一次请求的时候 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	```
 
 	实际上在XML文件中，配置**Spring.xml**配置文件的名称和路径也可以不通过实际上也可以不通过**contextConfiguration**来进行<br>
 	这是因为Spring MVC的配置文件默认的路径为 `/WEB-INF/<servlet-name>-servlet.xml` 所以只要按照以上的配置文件命名规则，并将该配置文件放到默认路径下，即使不在xml中配置contextConfiguration, Spring MVC 同样可以找到其配置文件。
 
-	* c. 加入Spring MVC配置文件：创建Spring 配置文件，并导入 beans，context，mvc的命名空间
-	>
-		>* 1). 配置自动扫描的包
-		`<context: component-scan base-package = ""  resource-pattern = "">`
-		>* 2). 配置视图解析器，即把handler 方法返回值解析为实际的物理视图
+	+ c. 加入Spring MVC配置文件：创建Spring 配置文件，并导入 beans，context，mvc的命名空间
+		- 1). 配置自动扫描的包
+		```xml
+		<context: component-scan base-package = ""  resource-pattern = "">
+		```
+		- 2). 配置视图解析器，即把handler 方法返回值解析为实际的物理视图
 	                在`/WEB-INF `目录下，新建一个view的文件夹，并在Spring mvc的配置文件中加入**InternalResourceViewResolver**视图解析器
 
-		 ```               
+		 ``` xml              
 		<bean id="viewResolver"
 		class="org.springframework.web.
 					servlet.view.InternalResourceViewResolver">
@@ -2070,12 +2071,11 @@ properties 文件内容:<br>
 		</bean>
 		```
 
-	* d. 编写请求的处理, 并标识为处理器
-	>
-		>* 1). 创建一个类，在自定义的类中，加入@Controller 注解，将其标记为Hanlder 处理器
-		>* 2). 之后在类中使用`@RequestMapping("URL路径")`注解 来映射请求的URL。被映射`@RequestMapping`的请求方法的返回值，会通过视图解析器解析为物理视图。<br>之后`InternalResourceViewResolver`解析器会通过Spring MVC配置文件中的 `InternalResourceViewResolver` 的bean标签中的 **perfix(前缀) +返回值(returnVal) +suffix(后缀)** 的方式得到物理视图，然后进行forward转发操作。
-		>*  3). 在上一步新建的view 文件夹下，建立与返回值对应的JSP文件，即 返回值.jsp
-	* e. 编写视图
+	+ d. 编写请求的处理, 并标识为处理器
+		- 1). 创建一个类，在自定义的类中，加入@Controller 注解，将其标记为Hanlder 处理器
+		- 2). 之后在类中使用`@RequestMapping("URL路径")`注解 来映射请求的URL。被映射`@RequestMapping`的请求方法的返回值，会通过视图解析器解析为物理视图。<br>之后`InternalResourceViewResolver`解析器会通过Spring MVC配置文件中的 `InternalResourceViewResolver` 的bean标签中的 **perfix(前缀) +返回值(returnVal) +suffix(后缀)** 的方式得到物理视图，然后进行forward转发操作。
+		-  3). 在上一步新建的view 文件夹下，建立与返回值对应的JSP文件，即 返回值.jsp
+	+ e. 编写视图
 	            在JSP中进行视图编写。
 
 
@@ -2088,18 +2088,17 @@ properties 文件内容:<br>
 	* b. `@RequestMapping`中请求方式的method属性: 来指定URL的请求方法 可以**指定get、post方法**
 	例如:
 
-	```
+	```java
 	@RequestMapping(value ="/helloWorld",
 								method=RequestMethod.POST);   
 	```
 
 	* c. (了解)请求参数和请求头对应的`params`和`headers`属性,他们都支持简单表达式。<br> 即: `!param` 表示不被包含的参数 `param != value`表示 param值不能为value。<br>
 	例如:
-
-
-		 @RequestMapping(value = "/helloWorld"
-		 						params={"username", "age!=10"})
-
+	```java
+	 @RequestMapping(value = "/helloWorld"
+	 						params={"username", "age!=10"})
+	```
 
 	即表示请求中必须要有uesername的属性，且age 不等于10.
 
@@ -2109,7 +2108,7 @@ properties 文件内容:<br>
 * `@PathVriable`: 映射URL的绑定占位符，是Spring 3.0后的新功能。通过 `@PathVriable`可以将URL中的占位符参数绑定到控制器处理的目标方法的入参列表中。<br>
 	例如:`@RequestMapping("/helloWorld/{username}") `   <br>**注意:**URL中*"{}"*里面的参数,需要跟`@PathVriable的value`参数(只有value一个参数的时候可以不写)相对应。
 
-	```
+	```java
 	public void showName(  @PathVriable("username") String name)
 	{
 		System.out.print(name);
