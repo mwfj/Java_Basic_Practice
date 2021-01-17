@@ -716,12 +716,12 @@ public List findStudents(String name,int age){
 		> * **`<defalutCache>`**:默认的数据过期策略。
 		> * **`<cache name="">`**:设定具体的命名缓存的数据过期策略，其中每一个命名缓存代表着一个缓存区域。缓存区域(region): 一个具有名称的缓存块，可以给每一个缓存区域设定不同的缓存策略.<br>
 		> * **如果没有设置任何的缓存区域，那么被缓存的所有对象都会使用默认的缓存策略(<defalutCache>)**
-			>* name属性: 设置缓存的名字
-			>* maxInMemory属性:设置基于内存的缓存中可存放的最大对象数目
-			>* eternal属性: 设置对象是否为永久的,true表示用户过期。此时忽略 timeToIdleSeconds 和 timeToLiveSeconds 属性，默认为false。
-			>* timeToIdleSecond属性: 设置对象的最长空闲时期，以秒为单位，超过这个时间对象过期，当对象过期时Ehcache会把这个对象从缓存中清除，如果为0，代表这个对象可以无限期的处于空闲状态
-			>* timeToLiveSecond属性: 设置对象的最长生存时间，超过这个时间，对象过期。如果为0，代表这个对象可以无限期的存在于缓存中。该属性必须大于或等于 timeToIdleSeconds的属性值
-			>* overflowToDisk属性:设置基于内存的缓存中的对象到达上限后，是否将基础的对象写入基于硬盘的缓存中。
+			+ name属性: 设置缓存的名字
+			+ maxInMemory属性:设置基于内存的缓存中可存放的最大对象数目
+			+ eternal属性: 设置对象是否为永久的,true表示用户过期。此时忽略 timeToIdleSeconds 和 timeToLiveSeconds 属性，默认为false。
+			+ timeToIdleSecond属性: 设置对象的最长空闲时期，以秒为单位，超过这个时间对象过期，当对象过期时Ehcache会把这个对象从缓存中清除，如果为0，代表这个对象可以无限期的处于空闲状态
+			+ timeToLiveSecond属性: 设置对象的最长生存时间，超过这个时间，对象过期。如果为0，代表这个对象可以无限期的存在于缓存中。该属性必须大于或等于 timeToIdleSeconds的属性值
+			+ overflowToDisk属性:设置基于内存的缓存中的对象到达上限后，是否将基础的对象写入基于硬盘的缓存中。
 * Ehcache 的命名方法:
 
 	* Hibernate在不同的缓存区域保存不同的类/集合
