@@ -1219,17 +1219,17 @@ Spring Construction：
 		 //即 select row_name(列名) rowName(类的属性名)。
 	```
 
-***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
-
-```java
-	RowMapper<Object> rowMapper =
-				new BeanPropertyRowMapper<>(Object.class);
-	List<Object> list = J
-			DBCTemplate.query(sql, rowMapper, args占位符);
-		 //注意这里调用的不是queryForList方法
-```
-
-获取单个列的值或者做统计查询: <br>使用`JDBCTemplate.queryForObject(sql, Object.class);`
+	***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
+	
+	```java
+		RowMapper<Object> rowMapper =
+					new BeanPropertyRowMapper<>(Object.class);
+		List<Object> list = J
+				DBCTemplate.query(sql, rowMapper, args占位符);
+			 //注意这里调用的不是queryForList方法
+	```
+	
+	获取单个列的值或者做统计查询: <br>使用`JDBCTemplate.queryForObject(sql, Object.class);`
 
 * c. 在JDBCTemplate使用具有名字参数NamedParameterJdbcTemplate: <br>`NamedParameterJdbcTemplate`，该对象可以使用具名参数，但是该对象没有无参构造器，**所以必须为其构造器制定参数**<br>
 在XML文件中配置具名参数:
