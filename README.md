@@ -1199,7 +1199,7 @@ Spring Construction：
 	</bean>
 	```
 * b. 通过`JDBCTemplate.update(sql语句,占位符参数);` 来执行**INSERT, UPDATE,DELETE**操作。
-	å通过
+	通过:
 
 	```java
 	JDBCTemplate.batchUpdate(sql语句,batchArgs(List<Object[]>));
@@ -1212,21 +1212,22 @@ Spring Construction：
 	```
 其中的**RowMapper** 是指定如何去映射结果集的行，常用的实现类为**BeanPropertyRowMapper**
 
-	```java
+```java
 	Object object =
 			JDBCTemplate.queryForObject(sql语句, rowMapper, args)
 	 //在sql语句中需要对类名和表中列的属性名进行映射
 	 //即 select row_name(列名) rowName(类的属性名)。
-	```
+```
 ***注意:*** 并不是<br>`JDBCTemplate.queryForObject(sql语句, Object.class, args);` 他是返回一个指定的类型，而且JDBCTemplate不支持级联属性的查询， 到底只是JDBC小工具，而不是ORM框架<br>利用JDBCTemplate 查询实体类的集合 即查询多行的数据。
 
-	```java
+```java
 	RowMapper<Object> rowMapper =
 				new BeanPropertyRowMapper<>(Object.class);
 	List<Object> list = J
 			DBCTemplate.query(sql, rowMapper, args占位符);
 		 //注意这里调用的不是queryForList方法
-	```
+```
+
 获取单个列的值或者做统计查询: <br>使用`JDBCTemplate.queryForObject(sql, Object.class);`
 
 * c. 在JDBCTemplate使用具有名字参数NamedParameterJdbcTemplate: <br>`NamedParameterJdbcTemplate`，该对象可以使用具名参数，但是该对象没有无参构造器，**所以必须为其构造器制定参数**<br>
@@ -1252,7 +1253,7 @@ Spring Construction：
 		paramMap.put("age", "25");
 		NamedParameterJdbcTemplate.update(sql, paramMap);
 	```
-`NamedParameterJdbcTemplate.update(sql, paramMap)`的<br>
++ `NamedParameterJdbcTemplate.update(sql, paramMap)`的<br>
 
 	* 好处: 若有多个参数，不需要向以前占位符去对应位置，而是直接对应参数名。方便维护
 	* 坏处: 相比传统方法, 比较麻烦
