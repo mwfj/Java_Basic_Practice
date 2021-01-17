@@ -1809,30 +1809,30 @@ properties 文件内容:<br>
 * a. 若是一个查询方法，该方法必须以 find...By| read...By| get...By| query...By|count...By 。<br>**当涉及到查询条件的时候条件的属性必须用该条件的关键字连接，而且属性的首字母必须大写**
 * b. SpringData 还支持将符合规范的关键字作为方法名的一部分从而来直接定义查询方法:<br>
 具体关键字有:<br>
-And --- 等价于 SQL 中的 and 关键字(where x.lastname = ?1 and x.firstname = ?2)，比如 findByUsernameAndPassword(String user, Striang pwd)；<br>
-Or --- 等价于 SQL 中的 or 关键字(where x.lastname = ?1 or x.firstname = ?2)，比如 findByUsernameOrAddress(String user, String addr)；<br>
-Between --- 等价于 SQL 中的 between 关键字(where x.startDate between 1? and ?2)，比如 findBySalaryBetween(int max, int min)；<br>
-LessThan --- 等价于 SQL 中的 "<"(where x.age < ?1)，比如 findBySalaryLessThan(int age)；<br>
-LessThanEqual --- 等价于 SQL 中的 "<="(where x.age <= ?1)，比如 findBySalaryLessThanEqual(int age)；<br>
-GreaterThan --- 等价于 SQL 中的">"(where x.age > ?1)，比如 findBySalaryGreaterThan(int age)；<br>
-GreaterThanEqual --- 等价于 SQL 中的 "<="(where x.age <= ?1)，比如 findBySalaryGreaterThanEqual(int max)；<br>
-After --- 等价于 SQL 中的 "(时间之后) >"(where x.startdate > ?1)，比如 findByStartDateAfter(Date startdate)；<br>
-Before --- 等价于 SQL 中的 "(时间之前) <"(where x.startdate < ?1)，比如 findByStartDateBefore(Date startdate)；<br>
-IsNull --- 等价于 SQL 中的 "is null"，比如 findByUsernameIsNull()；<br>
-IsNotNull,NotNull --- 等价于 SQL 中的 "is not null"(where x.age is null)，比如 findByUsername(Is)NotNull(int age); <br>
-Like --- 等价于 SQL 中的 "like"(where x.firstname like ?1)，比如 findByUsernameLike(String firstname)；<br>
-NotLike --- 等价于 SQL 中的 "not like"(where x.firstname not like ?1)，比如 findByUsernameNotLike(String firstname)；<br>
-ls,Equals --- 等价于 SQL 中的 "="(where x.firstname = 1?)，比如 findByFirstname,findByFirstnameIs,findByFirstnameEquals(String user);<br>
-StartingWith --- 以...开头(where x.firstname like ?1 (需要与%绑定, 例如:张%)) ，比如 findByFirstnameStartingWith(String firstname); <br>
-EndingWith --- 以...结束(where x.firstname like ?1 (需要与%绑定, 例如:%杰)) ，比如 findByFirstnameEndingWith(String firstname); <br>
-Cotaining --- 包含某个字符(where x.firstname like ?1 (需要与%绑定, 例如:%杰)) ，比如 findByFirstnameContaining(String firstname); <br>
-OrderBy --- 等价于 SQL 中的 "order by"，比如 findByUsernameOrderBySalaryAsc(String user)；<br>
-Not --- 等价于 SQL 中的 "！="，比如 findByUsernameNot(String user)；<br>
-In --- 等价于 SQL 中的 "in"，比如 findByUsernameIn(Collection<String> userList) ，方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；<br>
-NotIn --- 等价于 SQL 中的 "not in"，比如 findByUsernameNotIn(Collection<String> userList),方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；<br>
-True --- 等价于 SQL 中的 "true"(where x.active = true)，比如 findByActiveTrue() <br>
-False --- 等价于 SQL 中的 "false"(where x.active = false)，比如 findByActiveFalse() <br>
-IgnoreCase --- 等价于 SQL 中的 "UPPER"(where UPPER(x.firstame) = UPPER(?1) 即，忽略大小写)，比如 findByFirstnameIgnoreCase() <br>
+	And --- 等价于 SQL 中的 and 关键字(where x.lastname = ?1 and x.firstname = ?2)，比如 findByUsernameAndPassword(String user, Striang pwd)；<br>
+	Or --- 等价于 SQL 中的 or 关键字(where x.lastname = ?1 or x.firstname = ?2)，比如 findByUsernameOrAddress(String user, String addr)；<br>
+	Between --- 等价于 SQL 中的 between 关键字(where x.startDate between 1? and ?2)，比如 findBySalaryBetween(int max, int min)；<br>
+	LessThan --- 等价于 SQL 中的 "<"(where x.age < ?1)，比如 findBySalaryLessThan(int age)；<br>
+	LessThanEqual --- 等价于 SQL 中的 "<="(where x.age <= ?1)，比如 findBySalaryLessThanEqual(int age)；<br>
+	GreaterThan --- 等价于 SQL 中的">"(where x.age > ?1)，比如 findBySalaryGreaterThan(int age)；<br>
+	GreaterThanEqual --- 等价于 SQL 中的 "<="(where x.age <= ?1)，比如 findBySalaryGreaterThanEqual(int max)；<br>
+	After --- 等价于 SQL 中的 "(时间之后) >"(where x.startdate > ?1)，比如 findByStartDateAfter(Date startdate)；<br>
+	Before --- 等价于 SQL 中的 "(时间之前) <"(where x.startdate < ?1)，比如 findByStartDateBefore(Date startdate)；<br>
+	IsNull --- 等价于 SQL 中的 "is null"，比如 findByUsernameIsNull()；<br>
+	IsNotNull,NotNull --- 等价于 SQL 中的 "is not null"(where x.age is null)，比如 findByUsername(Is)NotNull(int age); <br>
+	Like --- 等价于 SQL 中的 "like"(where x.firstname like ?1)，比如 findByUsernameLike(String firstname)；<br>
+	NotLike --- 等价于 SQL 中的 "not like"(where x.firstname not like ?1)，比如 findByUsernameNotLike(String firstname)；<br>
+	ls,Equals --- 等价于 SQL 中的 "="(where x.firstname = 1?)，比如 findByFirstname,findByFirstnameIs,findByFirstnameEquals(String user);<br>
+	StartingWith --- 以...开头(where x.firstname like ?1 (需要与%绑定, 例如:张%)) ，比如 findByFirstnameStartingWith(String firstname); <br>
+	EndingWith --- 以...结束(where x.firstname like ?1 (需要与%绑定, 例如:%杰)) ，比如 findByFirstnameEndingWith(String firstname); <br>
+	Cotaining --- 包含某个字符(where x.firstname like ?1 (需要与%绑定, 例如:%杰)) ，比如 findByFirstnameContaining(String firstname); <br>
+	OrderBy --- 等价于 SQL 中的 "order by"，比如 findByUsernameOrderBySalaryAsc(String user)；<br>
+	Not --- 等价于 SQL 中的 "！="，比如 findByUsernameNot(String user)；<br>
+	In --- 等价于 SQL 中的 "in"，比如 findByUsernameIn(Collection<String> userList) ，方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；<br>
+	NotIn --- 等价于 SQL 中的 "not in"，比如 findByUsernameNotIn(Collection<String> userList),方法的参数可以是 Collection 类型，也可以是数组或者不定长参数；<br>
+	True --- 等价于 SQL 中的 "true"(where x.active = true)，比如 findByActiveTrue() <br>
+	False --- 等价于 SQL 中的 "false"(where x.active = false)，比如 findByActiveFalse() <br>
+	IgnoreCase --- 等价于 SQL 中的 "UPPER"(where UPPER(x.firstame) = UPPER(?1) 即，忽略大小写)，比如 findByFirstnameIgnoreCase() <br>
 
 * c. 使用关键字查询是支持查询级联属性的，但是如果当前类与级联类中有着相同的属性名，那么Spring DATA会优先使用当前类的属性，而不会是用级联属性。<br>这时，若需要使用 级联属性 可以在重复的级联属性名中加入_ 以防止Spring DATA对属性混淆。<br>例如 两个表中都有addressId 属性的话，那么此时调用级联表中的addressId属性就可以使用Address_Id来表示。
 
@@ -1845,7 +1845,7 @@ IgnoreCase --- 等价于 SQL 中的 "UPPER"(where UPPER(x.firstame) = UPPER(?1) 
 	* a. 使用占位符传递参数, 撰写SQL语句的时候需要在占位符后面加数字以表示占位符的顺序 例如:?1,?2<br>将要传递的参数放在与`@Query`对应方法的入参数列表中，参数的顺序是按照占位符的顺序来排列的。
 	eg.
 
-		```
+		```java
 		 @Query("SELECT table From My_Table p
 					WHERE p.table_name = ?1 AND p.age = ?2")
 		List<Object>
@@ -1858,7 +1858,7 @@ IgnoreCase --- 等价于 SQL 中的 "UPPER"(where UPPER(x.firstame) = UPPER(?1) 
 	传参的时候将参数放在@Param注解中并且放在方法参数的前面，之后按照参数名对@Query 进行传参<br>
 	eg. <br>
 
-		```
+		```java
 		@Query("SELECT table From My_Table p
 				WHERE p.table_name = :tname AND p.age = :tage")
 		  List<Object> testQueryAnnotationParameter(
@@ -1868,24 +1868,25 @@ IgnoreCase --- 等价于 SQL 中的 "UPPER"(where UPPER(x.firstame) = UPPER(?1) 
 
 
 	* c. 当SQL语句中存在"Like"关键字的时候， 可以在占位符或命名参数前后加入"%"，来完成LIKE所要表达的功能。<br>调用的时候把相应的LIKE关键词之间传入到方法的入参列表中即可。<br>
- 	eg. <br>
-
-	 	```
-	 	@Query("SELECT table From My_Table p
-	 		WHERE p.table_name LIKE %?1% AND p.email = %?2% ")
-		List<Object> testQueryAnnotationParameter(
-								String tableName, Integer age);
-		```
-	eg. <br>
-
-		```
-		@Query("SELECT table From My_Table p
-		WHERE p.table_name LIKE %:t-name% AND p.email
-										LIKE %:t-email% ")
-		List<Object> testQueryAnnotationParameter2(
-			@Param("t-name") String tableName,
-			@Param("t-email") String email);
-		```
+	 	eg. <br>
+	
+		 	```java
+		 	@Query("SELECT table From My_Table p
+		 		WHERE p.table_name LIKE %?1% AND p.email = %?2% ")
+			List<Object> testQueryAnnotationParameter(
+									String tableName, Integer age);
+			```
+			
+		eg. <br>
+	
+			```java
+			@Query("SELECT table From My_Table p
+			WHERE p.table_name LIKE %:t-name% AND p.email
+											LIKE %:t-email% ")
+			List<Object> testQueryAnnotationParameter2(
+				@Param("t-name") String tableName,
+				@Param("t-email") String email);
+			```
 
 	* d. 想@Query 中要使用原生的SQL语句而不是JPQL时，
 	                    需要把原生的SQL语句放入@Query注解中的"value"属性中，并把"nativeQuery"属性设置为"true"
