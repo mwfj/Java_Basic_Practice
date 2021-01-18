@@ -522,7 +522,7 @@ transaction.begin();
 * **立即检索**(当程序加载一个对象是为了获得属性本身)：立即加载指定对象或逾期相关的对象，即要立即使用一个数据而无需等待. 立即加载检索方法制定的对象 lazy=false
 * **延迟检索**(当程序加载一个对象是为了获得其应用，而不会立即使用属性的时候)：延迟指定对象或逾期相关的，首先创建起代理对象。即：只是映射数据的位置（不会生成Hibernate不会生成SQL语句），当用户需要的时候再进行检索。延迟加载查询子对象时候查询的次数为N+1次.<br>
 延迟加载检索方法制定的对象，即使用具体的属性时再进行加载 lazy=true; 可能会出现lazyInitialization Exception。延迟检索仅返回OID值，其他仅是代理类的引用。
-* **迫切左外链接检索：**通过左外连接来获取与其相关的对象。
+* **迫切左外链接检索** 通过左外连接来获取与其相关的对象。
 	* **迫切左外链接：使用左外链接的方式进行查询并且把集合的属性进行初始化操作,list()里 面存放并返回的是实体对象的引用，可以用hashSet来去除重复的元素。**<br>
 	* **左外链接(left join):list()存放并返回的使用一个对象数组类型，不能用hashSet的来取  出重复元素。根据配置文件来初始化数组**<br>
 	* **迫切内连接(Inner join fetch): 不返回左表不符合条件的元素**<br>
@@ -547,7 +547,7 @@ transaction.begin();
 			> * b.设置subselect 可以通过子查询的方式来初始化所有与set集合，此时lazy有效但是batch-size会被忽略。(决定many端集合的初始化时机)
 			> * c.若取值为join时:在加载一的一端的对象时会采用迫切左外连接来检索Many端对象一端的集合属性，lazy属性会被忽略 HQL的query()的list()方法会忽略映射文件中的迫切左外连接而依旧用延迟加载策略。
 
-	* **多对一，一对意的检索策略:**lazy 取值为proxy采用延迟检索，no-proxy采用无代理方式的延迟检索，false采用立即检索。
+	* **多对一，一对意的检索策略:** lazy 取值为proxy采用延迟检索，no-proxy采用无代理方式的延迟检索，false采用立即检索。
 
 		* fetch： 取值为join，表示使用迫切左外连接的方式初始化many关联的一端属性，此时忽略lazy
 		* batch-size: 该属性需要在一一段的class元素中，作用是一次初始化”一”的代理对象的个数
@@ -562,7 +562,7 @@ transaction.begin();
 	> * 2.lazy=true fetch=subselect  此时你的所有语句同样无需考虑联合查询的问题。
 	> * 3.lazy=true fetch=select 你自己很清楚的知道什么时候需要联合查询。
 
-**这三种的特点：**返回的数据结构返回的都是LIST(主表)， 一般leftjoin与innerjoin使用频率最多<br>
+**这三种的特点:** 返回的数据结构返回的都是LIST(主表)， 一般leftjoin与innerjoin使用频率最多<br>
 **注意:** 如果你需要表与表之间为平行结构，与延迟已经没有太大关系
 
 
@@ -672,8 +672,8 @@ public List findStudents(String name,int age){
 
 	**系统首先访问session的一级缓存，如果没有内容，再访问二级缓存。**
 
-* **二级缓存的作用：**即使在使用中关闭了session缓存，也要保证SQL语句仅运行一条，即避免重复的SQL语句的产生。
-	* **注意:**二级缓存不是在什么情况下都可以使用：很少修改的数据；不是很重要的数据，允许出现偶尔并发的数据；不会被访问的并发数据；参考数据；
+* **二级缓存的作用:** 即使在使用中关闭了session缓存，也要保证SQL语句仅运行一条，即避免重复的SQL语句的产生。
+	* **注意:** 二级缓存不是在什么情况下都可以使用：很少修改的数据；不是很重要的数据，允许出现偶尔并发的数据；不会被访问的并发数据；参考数据；
 * **二级缓存的并发策略**(与数据库的四个隔离级别一一对应): 非严格读写(Non-strict-Read-Write),读写型(Read-Write推荐),事务型(Transaction),只读型(Read-Only 即 Serilazation)
 
 **集合级别的二级缓存:**
@@ -837,8 +837,8 @@ Spring Construction：
 * a. 在XML文件中导入context的命名空间并且加入**`<context: component-scan>`** 来进行Bean扫描。<br>
 	* 其中**base-package**属性制定一个需要扫描的基类包, Spring会扫描这个包下的所有类，当需要扫描多的包的时候用逗号隔开
 	* resource-pattern 来设置指定扫描的资源，而不是全部
-		* **`<context: include-filter>`**子节点表示要包含的目标类
-		* **`<context: exclude-filter>`**子节点表示排除在外的目标类
+		* `<context: include-filter>` 子节点表示要包含的目标类
+		* `<context: exclude-filter>` 子节点表示排除在外的目标类
 
 	```xml
 	eg.<!--制定Spring IOC容器的扫描的包-->
@@ -861,9 +861,9 @@ Spring Construction：
 **此外，也可以通过标识注解中的value属性来设定名称**
 
 * b. 在需要被扫描的Bean类前加入Spring注解，来标识这个类是要被扫描的
-	* **`@Component`** 基本注解，表示一个受Spring管理的组件  @Respository 标识持久层  @Service 调试服务层(业务层)组件
-	* **`@Controller`** 标识表现层的组件
-* c. **`<context: component-scan>`**会自动注册 AutowiredAnnotationBeanPostProcessor实例，该实例会自动装配 **@AutoWire, @Resource, @Inject的注解属性**：
+	* `@Component`  基本注解，表示一个受Spring管理的组件  @Respository 标识持久层  @Service 调试服务层(业务层)组件
+	* `@Controller` 标识表现层的组件
+* c. `<context: component-scan>` 会自动注册 AutowiredAnnotationBeanPostProcessor实例，该实例会自动装配 **@AutoWire, @Resource, @Inject的注解属性**：
 	* 1). `@AutoWire` 注解 自动装配与当前bean具有关联关系的已经在IOC容器中创建的其他Bean 和 set方法。<br>默认情况下如果在需要自动装配的Bean或方法前加入`@AutoWire`, IOC容器会自动将该Bean 和 set方法进行装配。<br>如果需加**@AutoWire Bean**或方法在IOC容器中并没有被声明，那么在`@AutoWire()`将require属性置为false即可。
 	*  2). 当IOC容器中有很多个相匹配的Bean的时候(例如: `@AutoWire`接口，而该接口有多个实现类), IOC容器会默认装配Bean的名字与`@AutoWire` 的名字一样的Bean。
 
@@ -1029,8 +1029,8 @@ Spring Construction：
 *  一般bean的生命周期是从IOC容器创建是开始调用bean的初始化方法，为属性赋值，容器关闭时结束并调用bean的销毁方法。
 * 可以在`<bean>`中设置 **init-method ="init-id"** <br> **destroy-method ="destroy-id"** 来设置bean生命周期的开始和结束的标识符。
 * Bean的后置处理器: 允许在调用bean的初始化方法前后对bean进行额外的处理，并且对IOC容器中的所有Bean实例进行逐一处理需要实现BeanPostProcessor接口, 并且实现 **postProcessAfterInitialization(Object bean, String bean\_name), postProcessBeforeInitialization(Object bean, String bean\_name)**这两个方法并进行相应的策略处理<br>
-	* 其中 **bean**表示 Bean实例本身;   <br>**bean\_name:** IOC容器中配置bean的名字;<br>**返回值:**实际上就是返回给用户的那个Bean。<br>
-	* **注意:**可以再以上的两个方法里修改返回的Bean实例，甚至是返回一个新的Bean实例,并把该后置处理器类在xml中`<bean>`进行配置,*注意这里的bean不需要设置id属性*。<br>IOC容器会自动识别BeanPostProcessor。
+	* 其中 **bean**表示 Bean实例本身;   <br>**bean\_name:** IOC容器中配置bean的名字;<br> **返回值:** 实际上就是返回给用户的那个Bean。<br>
+	* **注意:** 可以再以上的两个方法里修改返回的Bean实例，甚至是返回一个新的Bean实例,并把该后置处理器类在xml中`<bean>`进行配置,*注意这里的bean不需要设置id属性*。<br>IOC容器会自动识别BeanPostProcessor。
 
 #### 通过BeanFactory 配置Bean:
 * 静态工厂方法: 直接调用某一类的静态方法就可以返回Bean的实例
